@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111c1a">
+<meta name="description" content="Mapa interativo e cronologia de uma campanha de D&D em Eberron.">
+<title>Atlas de Eberron</title>
+<link rel="stylesheet" href="atlas.css">
+<script defer src="atlas.js"></script>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" class="symbols" aria-hidden="true">
+<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 10-7 10S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 16v4h14v-4"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2-2-5-2.4-9-2v14c4-.4 7 0 9 2 2-2 5-2.4 9-2V4c-4-.4-7 0-9 2zm0 0v14"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="m6 10 6 6 6-6"/></symbol>
+</svg>
+<header class="topbar">
+  <div class="top-inner">
+    <a class="brand" href="#" id="home"><span class="sigil"><svg><use href="#i-compass"/></svg></span> Atlas de Eberron</a>
+    <div class="top-actions">
+      <button id="share" class="subtle dm" aria-label="Partilhar com jogadores"><svg><use href="#i-download"/></svg><span>Partilhar com jogadores</span></button>
+      <button id="player" class="outline dm" aria-label="Vista dos jogadores"><svg><use href="#i-eye"/></svg><span>Vista dos jogadores</span></button>
+      <span id="view-label" class="view-label" hidden><svg><use href="#i-eye"/></svg> Vista dos jogadores</span>
+      <button id="exit-player" class="outline" hidden>Voltar à edição</button>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="masthead">
+    <div>
+      <p class="eyebrow"><span>✦</span> D&amp;D / Diário de campanha</p>
+      <h1>Atlas de Eberron</h1>
+      <p class="intro">Explora o mapa e segue os acontecimentos da campanha.</p>
+    </div>
+    <button class="primary dm" id="add"><svg><use href="#i-plus"/></svg> Novo evento</button>
+  </section>
+  <div class="workspace">
+    <section class="map-card" aria-label="Mapa da campanha">
+      <div class="map-bar">
+        <nav id="map-tabs" aria-label="Escala do mapa">
+          <button type="button" data-map="mundo" aria-pressed="false">Mundo</button>
+          <button type="button" data-map="khorvaire" aria-pressed="true">Khorvaire</button>
+          <button type="button" data-map="sharn" aria-pressed="false">Sharn</button>
+        </nav>
+        <div id="map-name"><svg><use href="#i-pin"/></svg><span id="map-caption">Continente de Khorvaire</span></div>
+      </div>
+      <div class="viewport" id="viewport" tabindex="0" aria-label="Mapa interativo. Usa as setas para mover e as teclas mais e menos para ampliar ou reduzir.">
+        <img id="map-image" alt="" draggable="false">
+        <div id="markers"></div>
+        <div class="map-controls">
+          <button id="zoom-in" title="Ampliar" aria-label="Ampliar"><svg><use href="#i-plus"/></svg></button>
+          <button id="zoom-out" title="Reduzir" aria-label="Reduzir"><svg><use href="#i-minus"/></svg></button>
+          <button id="reset" title="Recentrar mapa" aria-label="Recentrar mapa"><svg><use href="#i-reset"/></svg></button>
+        </div>
+        <div class="compass" aria-hidden="true"><span>N</span><b>✧</b></div>
+        <div id="pick-hint" class="pick-hint" hidden>Seleciona o local no mapa <button id="cancel-pick" class="link">Cancelar</button></div>
+        <span id="zoom-value" class="zoom-value">100%</span>
+      </div>
+      <div class="map-foot">
+        <span><span class="legend-dot"></span> Evento <span class="legend-approx"></span> Local aproximado</span>
+        <button id="credits" class="link">Créditos dos mapas</button>
+      </div>
+    </section>
+    <aside class="journal" aria-labelledby="journal-title">
+      <div class="journal-head">
+        <div class="journal-icon"><svg><use href="#i-book"/></svg></div>
+        <div><h2 id="journal-title">Cronologia</h2><p id="count"></p></div>
+      </div>
+      <label class="search"><svg><use href="#i-search"/></svg><input id="search" type="search" placeholder="Pesquisar eventos…" aria-label="Pesquisar eventos"></label>
+      <div class="timeline" id="timeline"></div>
+      <section id="detail" class="detail" aria-live="polite" hidden></section>
+    </aside>
+  </div>
+  <footer><span>Campanha de Eberron</span><button class="link dm" id="backup">Cópia de segurança</button></footer>
+</main>
+<dialog id="editor">
+  <form id="event-form">
+    <div class="dialog-head"><h2 id="form-title">Novo evento</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+    <label>Título <input name="title" required maxlength="120" placeholder="Ex. A missão na igreja de Olarune"></label>
+    <div class="form-row"><label>Local <input name="place" required maxlength="120" placeholder="Ex. Sharn · Docas"></label><label>Quando <input name="date" maxlength="100" placeholder="Ex. 15 de Olarune, 998 YK"></label></div>
+    <label>Descrição <textarea name="description" rows="4" maxlength="2400" placeholder="O que aconteceu?"></textarea></label>
+    <div class="position-row"><span id="position-status"></span><button type="button" class="outline" id="pick"><svg><use href="#i-pin"/></svg> Marcar no mapa</button></div>
+    <label class="check"><input type="checkbox" name="approx"> Localização aproximada</label>
+    <label class="check"><input type="checkbox" name="visible"> Mostrar aos jogadores</label>
+    <p id="form-error" class="error" role="alert" hidden></p>
+    <div class="dialog-actions"><button type="button" class="outline dismiss">Cancelar</button><button class="primary" type="submit">Guardar evento</button></div>
+  </form>
+</dialog>
+<dialog id="sharing">
+  <div class="dialog-head"><h2>Partilhar com jogadores</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <p>Descarrega uma cópia interativa do atlas e envia o ficheiro aos jogadores. Podem abri-lo no navegador. A cópia inclui os mapas e os eventos assinalados como visíveis.</p>
+  <div class="dialog-actions"><button class="primary" id="download-player"><svg><use href="#i-download"/></svg> Descarregar atlas</button></div>
+</dialog>
+<dialog id="backup-dialog">
+  <div class="dialog-head"><h2>Cópia de segurança</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <p>Os eventos são guardados neste navegador. Exporta os dados para os guardares ou transferires para outro dispositivo.</p>
+  <p>Importar substitui os eventos deste navegador pelos do ficheiro escolhido.</p>
+  <div class="dialog-actions"><button class="outline" id="import">Importar JSON</button><button class="primary" id="export">Exportar JSON</button></div>
+  <input id="import-file" type="file" accept=".json,application/json" hidden>
+</dialog>
+<dialog id="credits-dialog">
+  <div class="dialog-head"><h2>Créditos dos mapas</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <ul class="credits-list">
+    <li><a href="https://andysdnd.wordpress.com/maps/" target="_blank" rel="noopener">Eberron · mapa-múndi</a> — Lee Moyer.</li>
+    <li><a href="https://www.reddit.com/r/Eberron/comments/x4f0ia/a_true_and_accurate_map_of_khorvaire_eberron_the/" target="_blank" rel="noopener">Khorvaire · versão para jogadores</a> — Tolemyyn d’Sivis.</li>
+    <li><a href="https://www.worldanvil.com/w/eberron-papervolcano/map/5e719548-e2ed-4751-95c7-8472d65baf09" target="_blank" rel="noopener">Sharn · Lower Wards</a> — Dennis Kauth e Rob Lazzaretti.</li>
+  </ul>
+  <p>Eberron é um cenário de Dungeons &amp; Dragons da Wizards of the Coast, criado por Keith Baker.</p>
+</dialog>
+<div id="toast" role="status" hidden></div>
+</body>
+</html>
