@@ -7,40 +7,693 @@ const editor = byId("editor");
 const form = byId("event-form");
 const search = byId("search");
 const snapshot = window.atlasSnapshot;
-const storageKey = "atlas-eberron-events-v1";
+const storageKey = "atlas-eberron-events-v2";
+const legacyStorageKey = "atlas-eberron-events-v1";
+const labels = { campaign: "Campanha", history: "História de Eberron", arix: "Arix", isadora: "Isadora", bear: "Bear Lee", dm: "Notas do DM" };
+const category = byId("event-group");
+const legacyEvents = [["forja-inicio", "Em busca da Forja Esquecida", "Sharn · Canalizações", "Sessão 1", "Isadora, Bear Lee e Arix começaram a investigação de The Forgotten Forge e seguiram o rasto até às canalizações de Sharn."], ["forja-schema", "O schema Cannith recuperado", "Sharn · Ruínas Cannith", "Sessão 2", "O grupo recuperou o schema Cannith em forma de estrela de sete pontas e entregou-o a Lady Elaydren. Mais tarde, descansou na estalagem Broken Anvil."], ["three-towers", "A missão dos Sentinel Marshals", "Sharn · Three Towers, Upper Tavick’s Landing", "Após a Sessão 2", "O grupo encontrou Rock Lee Marshal Deneith no enclave dos Sentinel Marshals. Arix recebeu uma missão de campo."], ["olarune", "O ataque à igreja de Olarune", "Sharn · Igreja de Olarune", "Após a missão dos Marshals", "Na igreja, o grupo encontrou um schema em forma de crescente usado como ídolo. Vola Ashroot foi mordida durante o ataque e o grupo conseguiu salvá-la."], ["docas", "O resgate de Tharok", "Sharn · Docas", "Após o ataque à igreja", "O grupo resgatou Tharok e incendiou o armazém das docas. Garrow escapou com o schema."]];
 const maps = {
   mundo: { caption: "Mapa-múndi de Eberron", width: 1600, height: 1231, alt: "Mapa-múndi de Eberron, com Khorvaire, Aerenal, Xen’drik, Argonnessen e Sarlona" },
   khorvaire: { caption: "Continente de Khorvaire", width: 7680, height: 4837, alt: "Mapa de Khorvaire com cidades, nações, rios, montanhas e linhas do Lightning Rail" },
   sharn: { caption: "Sharn · Lower Wards", width: 2500, height: 3000, alt: "Mapa dos bairros inferiores de Sharn, incluindo a frente ribeirinha" }
 };
-const sharnPositions = { mundo: [0.274, 0.412], khorvaire: [0.2271, 0.8935] };
 const starterEvents = [
   {
-    id: "forja-inicio", title: "Em busca da Forja Esquecida", place: "Sharn · Canalizações",
-    date: "Sessão 1", description: "Isadora, Bear Lee e Arix começaram a investigação de The Forgotten Forge e seguiram o rasto até às canalizações de Sharn.",
-    visible: true, approx: true, points: sharnPositions
+    "id": "forja-inicio",
+    "title": "O assassínio de Bonal e a Forja Esquecida",
+    "place": "Sharn · Canalizações",
+    "date": "998 YK · Sessão 1",
+    "description": "A morte de Bonal Geldem reuniu Arix, Isadora e Bear Lee. Lady Elaydren pediu-lhes que recuperassem uma relíquia Cannith. A investigação levou o grupo aos esgotos de Sharn.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
   },
   {
-    id: "forja-schema", title: "O schema Cannith recuperado", place: "Sharn · Ruínas Cannith",
-    date: "Sessão 2", description: "O grupo recuperou o schema Cannith em forma de estrela de sete pontas e entregou-o a Lady Elaydren. Mais tarde, descansou na estalagem Broken Anvil.",
-    visible: true, approx: true, points: sharnPositions
+    "id": "forja-schema",
+    "title": "O schema Cannith recuperado",
+    "place": "Sharn · Ruínas Cannith e Broken Anvil",
+    "date": "998 YK · Sessão 2",
+    "description": "O grupo recuperou o schema em forma de estrela de sete pontas e entregou-o a Lady Elaydren. Chegou ao nível 2 e passou a noite no Broken Anvil, por conta dela.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
   },
   {
-    id: "three-towers", title: "A missão dos Sentinel Marshals", place: "Sharn · Three Towers, Upper Tavick’s Landing",
-    date: "Após a Sessão 2", description: "O grupo encontrou Rock Lee Marshal Deneith no enclave dos Sentinel Marshals. Arix recebeu uma missão de campo.",
-    visible: true, approx: true, points: sharnPositions
+    "id": "three-towers",
+    "title": "A missão dos Sentinel Marshals",
+    "place": "Sharn · Three Towers, Upper Tavick’s Landing",
+    "date": "998 YK · Sessão 3",
+    "description": "Um bilhete recebido após a passagem pela Barmin Tower levou Arix ao enclave. Rock reconheceu Bear Lee como meio-irmão, mandou-o sair e deu a Arix uma missão de campo.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
   },
   {
-    id: "olarune", title: "O ataque à igreja de Olarune", place: "Sharn · Igreja de Olarune",
-    date: "Após a missão dos Marshals",
-    description: "Na igreja, o grupo encontrou um schema em forma de crescente usado como ídolo. Vola Ashroot foi mordida durante o ataque e o grupo conseguiu salvá-la.",
-    visible: true, approx: true, points: sharnPositions
+    "id": "olarune",
+    "title": "O schema em crescente desaparece",
+    "place": "Sharn · Igreja de Olarune",
+    "date": "998 YK · Após a sessão 3",
+    "description": "O grupo ligou o roubo do ídolo em crescente à Garra Esmeralda e à reanimação dos mortos no cemitério adjacente. Ajudou Vola Ashroot após a mordedura, soube que o sacerdote Tharok tinha desaparecido e preparou três estacas de madeira.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
   },
   {
-    id: "docas", title: "O resgate de Tharok", place: "Sharn · Docas",
-    date: "Após o ataque à igreja",
-    description: "O grupo resgatou Tharok e incendiou o armazém das docas. Garrow escapou com o schema.",
-    visible: true, approx: true, points: { ...sharnPositions, sharn: [0.203, 0.564] }
+    "id": "docas",
+    "title": "O resgate de Tharok",
+    "place": "Sharn · Docas",
+    "date": "998 YK · Após a investigação na igreja",
+    "description": "O grupo retirou Tharok do armazém e incendiou-o. O líder da Garra Esmeralda escapou com o cofre e o schema em crescente. Na fuga, disse a Arix «I recognize you, Arix».",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ],
+      "sharn": [
+        0.203,
+        0.564
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "tharok-pistas",
+    "title": "O testemunho de Tharok",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Tharok levava água benta no bolso durante o cativeiro. O líder esteve perto dele sem reagir e Tharok ouviu-o conversar com alguém. O grupo levantou a hipótese de um changeling a trabalhar com um vampiro.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "broken-anvil-carta",
+    "title": "Uma carta aponta para Rose Quarry",
+    "place": "Sharn · Broken Anvil",
+    "date": "998 YK · Sessão mais recente",
+    "description": "O grupo enfrentou e revistou um agente do Lord of Blades. A carta que ele trazia apontava para Rose Quarry e o grupo soube que Lady Elaydren quer que procurem lá outro schema. O grupo chegou ao nível 3.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "rose-quarry-destino",
+    "title": "O próximo destino de Elaydren",
+    "place": "Rose Quarry · Fronteira de Darguun com o Mournland",
+    "date": "Em aberto · 998 YK",
+    "description": "O grupo tem uma indicação para procurar outro schema em Rose Quarry. A pista foi descoberta no Broken Anvil, em Sharn.",
+    "visible": true,
+    "approx": false,
+    "points": {
+      "khorvaire": [
+        0.4902,
+        0.8311
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "demonios",
+    "title": "O sacrifício dos couatls",
+    "place": "Eberron",
+    "date": "Era dos Demónios",
+    "description": "Segundo a tradição da Chama de Prata, dragões e couatls combateram os soberanos demoníacos. O sacrifício dos couatls ajudou a aprisioná-los.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "history"
+  },
+  {
+    "id": "dhakaan",
+    "title": "O império de Dhakaan",
+    "place": "Khorvaire",
+    "date": "Antiguidade",
+    "description": "O império goblinoide dominou grande parte do continente e desagregou-se após a guerra contra os daelkyr.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "marcas",
+    "title": "A Guerra das Marcas",
+    "place": "Khorvaire",
+    "date": "c. −1500 YK",
+    "description": "A guerra consolidou o poder das casas dragonmarked.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "galifar",
+    "title": "A fundação de Galifar",
+    "place": "Khorvaire",
+    "date": "1 YK",
+    "description": "Galifar I reuniu as Cinco Nações num reino.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "chama",
+    "title": "A Igreja da Chama de Prata",
+    "place": "Thrane",
+    "date": "299 YK",
+    "description": "A origem da Igreja está ligada à história de Tira Miron.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.438,
+        0.52
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "guerra",
+    "title": "O início da Última Guerra",
+    "place": "Khorvaire",
+    "date": "894 YK",
+    "description": "A morte de Jarot ir’Wynarn desencadeou a disputa pela sucessão.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "valenar",
+    "title": "A independência de Valenar",
+    "place": "Valenar",
+    "date": "956 YK",
+    "description": "Os Valaes Tairn tomaram território cyrano e proclamaram Valenar.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.665,
+        0.735
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "eldeen",
+    "title": "A independência dos Eldeen Reaches",
+    "place": "Eldeen Reaches · Aundair",
+    "date": "958 YK",
+    "description": "Os Eldeen Reaches separaram-se de Aundair.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.252,
+        0.44
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "warforged",
+    "title": "Os primeiros warforged vivos",
+    "place": "Khorvaire",
+    "date": "965 YK",
+    "description": "Aarren d’Cannith criou os primeiros warforged vivos.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "darguun",
+    "title": "A fundação de Darguun",
+    "place": "Darguun",
+    "date": "969 YK",
+    "description": "Haruuc liderou uma revolta goblinoide e estabeleceu Darguun em antigo território de Cyre.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.462,
+        0.793
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "mourning",
+    "title": "O Dia do Mourning",
+    "place": "Cyre · Mournland",
+    "date": "994 YK",
+    "description": "Uma catástrofe arcana devastou Cyre e deixou o Mournland.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.574,
+        0.673
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "tratado",
+    "title": "O Tratado de Thronehold",
+    "place": "Thronehold",
+    "date": "996 YK",
+    "description": "O tratado pôs fim à Última Guerra, reconheceu a liberdade dos warforged e proibiu a sua criação.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "history"
+  },
+  {
+    "id": "arix-adocao",
+    "title": "Sylas adota Arix",
+    "place": "Sharn",
+    "date": "Antes da campanha",
+    "description": "Sylas Karva encontrou Arix nas ruas de Sharn e adotou-a. Depois de a apanhar a procurar componentes no seu gabinete, enviou-a para a Universidade de Morgrave para espiar por sua conta.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-mending",
+    "title": "O acidente em Morgrave",
+    "place": "Sharn · Universidade de Morgrave",
+    "date": "Antes da campanha · Prólogo da sessão 1",
+    "description": "Um acidente com Mending selou os lábios de Alaric e levou à expulsão de Arix. Bonal Geldem ofereceu-se para continuar a ensiná-la por correspondência.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-documentos",
+    "title": "Os documentos de Orien e Cannith",
+    "place": "Sharn · Universidade de Morgrave",
+    "date": "Antes da campanha · Recordação durante a missão de Olarune",
+    "description": "Arix viu Bonal e Kaven dividirem documentos sobre glifos de conjuração e maquinaria. Um vampiro disfarçado de contínuo apoderou-se da informação sobre o paradeiro do schema em crescente.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-asas",
+    "title": "As asas de dragão e os Marshals",
+    "place": "Sharn",
+    "date": "Antes da campanha",
+    "description": "Arix transmitiu a Sylas o que soube de Kaven sobre o schema. Sylas ensinou-a a manifestar asas de dragão e, através de Rock, colocou-a nos Sentinel Marshals.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-rock",
+    "title": "O documento sobre Rock",
+    "place": "Sharn · Gabinete de Arix",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Arix encontrou um documento segundo o qual a promoção de Rock assentou numa falsa reputação de herói de guerra.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "isa-denour",
+    "title": "A Derradeira Denour",
+    "place": "Local por confirmar",
+    "date": "Antes da campanha · Prólogo da sessão 2",
+    "description": "A avó de Isadora ensinou-lhe harpa e transmitiu-lhe a tradição da Derradeira Denour e o dom de tocar os fios da magia. Alfred continuou as lições após a morte da avó.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "isadora"
+  },
+  {
+    "id": "isa-wynarn",
+    "title": "Isadora, Neyo e Lucan em Wynarn",
+    "place": "Aundair · Universidade de Wynarn",
+    "date": "Antes da campanha · Prólogo da sessão mais recente",
+    "description": "A rivalidade entre Isadora e Neyo ir’Krell escondia uma atração mútua. Lucan Stellos também tinha sentimentos por Isadora.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.392,
+        0.453
+      ]
+    },
+    "group": "isadora"
+  },
+  {
+    "id": "isa-eduardo",
+    "title": "A notícia da morte de Eduardo",
+    "place": "Local por confirmar",
+    "date": "Depois da ofensiva de Vvaraak · Prólogo da sessão 2",
+    "description": "Rha trouxe a Isadora a notícia da morte do pai e tornou-se seu guarda-costas.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "isadora"
+  },
+  {
+    "id": "isa-metade",
+    "title": "A primeira proposta de Rock",
+    "place": "Sharn",
+    "date": "998 YK · Antes do resgate de Tharok",
+    "description": "Rock ofereceu-se para perdoar metade da dívida de Isadora se ela resolvesse o roubo e jantasse com ele.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "isadora"
+  },
+  {
+    "id": "isa-lucan",
+    "title": "O jantar com Rock e a missão de Lucan",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Isadora percebeu que Rock tinha sentimentos por ela. Ele propôs reduzir a dívida de Isadora para 3 000 po se ela encontrasse Lucan Stellos e resolvesse o problema. Segundo Rock, Lucan é um operacional da Cidadela de Breland, trabalha para Calderus e planeia traí-lo. Rock pediu a Isadora que tentasse dissuadi-lo. Se falhar, quer que o mate. Resolver o problema saldaria a dívida de Rock ao seu patrono.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "isadora"
+  },
+  {
+    "id": "bear-passage",
+    "title": "O nascimento de Bear Lee",
+    "place": "Passage · Aundair",
+    "date": "c. 966 YK · Prólogo da sessão 3",
+    "description": "Bear Lee nasceu em Passage, filho de Maela e Korruk, e herdou a Marca da Sentinela. A rivalidade com o meio-irmão Rock começou na infância.",
+    "visible": true,
+    "approx": false,
+    "points": {
+      "khorvaire": [
+        0.3475,
+        0.5196
+      ]
+    },
+    "group": "bear"
+  },
+  {
+    "id": "bear-vvaraak",
+    "title": "A infiltração em Vvaraak",
+    "place": "Montes de Vvaraak",
+    "date": "c. 992 YK",
+    "description": "Deneith enviou Bear Lee para se infiltrar na tribo durante a ofensiva de Eduardo. Aprendeu os costumes dos Gatekeepers e ficou noivo de Fjee-Rha, do clã Borius, que lhe deu o nome Rha-Kiuk.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "bear"
+  },
+  {
+    "id": "bear-resistencia",
+    "title": "Rha junta-se à resistência",
+    "place": "Montes de Vvaraak",
+    "date": "Durante a ofensiva de Vvaraak",
+    "description": "Rha hesitou em entregar informações e houve mortos durante o atraso. Depois de Fjee-Rha ser dada como morta, partilhou informações com a resistência. Eduardo morreu numa armadilha defensiva de Rha. Rha levou a notícia a Isadora e ofereceu-se para a proteger sem cobrar.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "bear"
+  },
+  {
+    "id": "bear-tharok",
+    "title": "O corpo de Fjee-Rha nunca apareceu",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Tharok Borius, tio de Fjee-Rha, revelou a Rha que nunca encontraram o corpo dela.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "bear"
+  },
+  {
+    "id": "dm-skarvath",
+    "title": "Tiamat, Sylas e o Xulo Pattern",
+    "place": "Argonnessen · Pit of Five Sorrows",
+    "date": "Antiguidade · Consequências na campanha",
+    "description": "O aprisionamento de Tiamat interrompeu a criação do abishai verde Skarvath, que vive como Sylas Karva. Quer libertá-la para que conclua a sua criação. Desviou Wynarn Dreamleaf durante a guerra de Vvaraak. O Xulo Pattern deriva de investigação sobre conjuração sustentada.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.642,
+        0.615
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-xendrik",
+    "title": "O complexo sobrevivente dos gigantes",
+    "place": "Xen’drik",
+    "date": "c. −40 000 a −39 000 YK",
+    "description": "Após a guerra contra Dal Quor e a destruição da civilização dos gigantes pelos dragões, um complexo conservou instalações, vestígios da escravização dos elfos e portais de água ligados a Lamannia.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.277,
+        0.7
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-kedran",
+    "title": "Os documentos antigos e a identidade de Kedran",
+    "place": "Khorvaire",
+    "date": "Cerca de quinze séculos antes da campanha",
+    "description": "A investigação de Orien sobre glifos e maquinaria foi testada por Cannith. O relato jogado distingue o investigador Orien de Kedran Cannith. Uma revisão identifica Kedran como d’Orien. A identidade no relato jogado continua por conciliar.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-rose",
+    "title": "A origem do vidro de Rose Quarry",
+    "place": "Rose Quarry · Whitehearth",
+    "date": "994 YK · Imediatamente antes do Mourning",
+    "description": "Uma máquina experimental de Whitehearth lançou vidro fundido sobre Rose Quarry e matou os habitantes. A causa do Mourning continua por esclarecer.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.4902,
+        0.8311
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-merrix",
+    "title": "Os interesses dos ramos Cannith",
+    "place": "Fairhaven, Sharn e Korth",
+    "date": "Depois de 994 YK",
+    "description": "Elaydren serve secretamente Merrix, que prefere associar a investigação ao ramo de Jorlanna. Merrix contacta Sylas. Os termos e o que Merrix sabe sobre o portal estão em aberto.",
+    "visible": false,
+    "approx": false,
+    "points": {},
+    "group": "dm"
+  },
+  {
+    "id": "dm-calderus",
+    "title": "O cativeiro de Tharok e a hipótese Calderus",
+    "place": "Sharn · Docas",
+    "date": "998 YK · Missão de Olarune e sessão mais recente",
+    "description": "Garrow levou o cofre e torturou Tharok para saber mais sobre o schema. Calderus é a hipótese de trabalho do DM para o vampiro que poderá ter estado em contacto com o líder. A identidade do interlocutor continua por confirmar.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ],
+      "sharn": [
+        0.203,
+        0.564
+      ]
+    },
+    "group": "dm"
   }
 ];
 
@@ -57,19 +710,42 @@ function validEvents(records) {
     const points = Object.fromEntries(Object.entries(record.points || {}).filter(([map, p]) =>
       Object.hasOwn(maps, map) && Array.isArray(p) && p.length === 2 && p.every(n => Number.isFinite(n) && n >= 0 && n <= 1)
     ));
-    if (!Object.keys(points).length) throw new Error("Missing map point");
     return {
       id: record.id, title: record.title, place: record.place, date: record.date, description: record.description,
-      visible: record.visible === true, approx: record.approx === true, points
+      visible: record.visible === true, approx: record.approx === true, points,
+      group: Object.hasOwn(labels, record.group) ? record.group : "campaign"
     };
   });
 }
 
 function loadEvents() {
-  if (snapshot) return validEvents(snapshot.events).filter(event => event.visible);
+  if (snapshot) return validEvents(snapshot.events).filter(event => canShare(event, snapshot.recipient));
   try {
     const stored = localStorage.getItem(storageKey);
-    return validEvents(stored ? JSON.parse(stored) : starterEvents);
+    if (stored) return validEvents(JSON.parse(stored));
+    const legacy = localStorage.getItem(legacyStorageKey);
+    if (!legacy) return validEvents(starterEvents);
+    const previous = validEvents(JSON.parse(legacy));
+    const defaults = new Map(legacyEvents.map(([id, ...fields]) => [id, fields]));
+    const starter = new Map(starterEvents.map(event => [event.id, event]));
+    const migrated = previous.map(event => {
+      const fields = defaults.get(event.id);
+      if (!fields) return event;
+      const updated = { ...event };
+      ["title", "place", "date", "description"].forEach((field, index) => {
+        if (event[field] === fields[index]) updated[field] = starter.get(event.id)[field];
+      });
+      return updated;
+    });
+    const previousIds = new Set(previous.map(event => event.id));
+    const additions = starterEvents.filter(event => !defaults.has(event.id) && !previousIds.has(event.id));
+    const result = validEvents([...migrated, ...additions]);
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(result));
+    } catch {
+      // Keep the migrated events usable even when storage is full.
+    }
+    return result;
   } catch {
     return validEvents(starterEvents);
   }
@@ -114,14 +790,32 @@ function persist(updated) {
   }
 }
 
+function canShare(event, recipient = "group") {
+  return event.visible && (event.group === "campaign" || event.group === "history" ||
+    (["arix", "isadora", "bear"].includes(recipient) && event.group === recipient));
+}
+
 function visibleEvents() {
-  return playerView ? events.filter(event => event.visible) : events;
+  return playerView ? events.filter(event => canShare(event, snapshot?.recipient)) : events;
+}
+
+function syncCategories() {
+  const before = category.value || (Object.hasOwn(labels, snapshot?.recipient) ? snapshot.recipient : "campaign");
+  const allowed = playerView ? new Set(["campaign", "history", snapshot?.recipient]) : new Set(Object.keys(labels));
+  category.replaceChildren();
+  for (const [value, label] of Object.entries(labels)) {
+    if (!allowed.has(value)) continue;
+    const option = make("option", "", label);
+    option.value = value;
+    category.append(option);
+  }
+  category.value = allowed.has(before) ? before : "campaign";
 }
 
 function filteredEvents() {
   const normalize = (s) => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
   const term = normalize(search.value.trim());
-  return visibleEvents().filter(event => normalize([event.title, event.place, event.date, event.description].join(" ")).includes(term));
+  return visibleEvents().filter(event => event.group === category.value && normalize([event.title, event.place, event.date, event.description].join(" ")).includes(term));
 }
 
 function positionFor(event, map = currentMap) {
@@ -130,7 +824,7 @@ function positionFor(event, map = currentMap) {
 
 function drawMarkers() {
   const groups = new Map();
-  const all = visibleEvents();
+  const all = visibleEvents().filter(event => event.group === category.value);
   for (const event of filteredEvents()) {
     const point = positionFor(event);
     if (!point) continue;
@@ -253,7 +947,9 @@ function renderDetail(event) {
   detail.hidden = !event;
   detail.replaceChildren();
   if (!event) return;
-  detail.append(make("p", "detail-tag", event.approx ? "Local aproximado" : "Local marcado"), make("h3", "", event.title));
+  const hasPoint = Object.keys(event.points).length > 0;
+  const tag = !hasPoint ? "Sem marcador" : event.approx ? "Local aproximado" : "Local marcado";
+  detail.append(make("p", "detail-tag", tag), make("h3", "", event.title));
   for (const [symbol, label] of [["pin", event.place], ["clock", event.date || "Data por confirmar"]]) {
     const p = make("p", "meta");
     p.innerHTML = icon(symbol);
@@ -264,15 +960,16 @@ function renderDetail(event) {
   const buttons = make("div", "event-actions");
   if (positionFor(event, "sharn") && currentMap !== "sharn") {
     buttons.append(action("Ver em Sharn", () => { setMap("sharn"); focusEvent(event); renderDetail(event); }, "link jump"));
-  } else {
+  } else if (hasPoint) {
     buttons.append(action("Centrar no mapa", () => focusEvent(event), "link jump"));
   }
   if (!playerView) {
-    const index = events.indexOf(event);
+    const group = events.filter(item => item.group === event.group);
+    const index = group.indexOf(event);
     const up = action("Mover para antes na cronologia", () => reorder(event, -1), "icon-button", "up");
     const down = action("Mover para depois na cronologia", () => reorder(event, 1), "icon-button", "down");
     up.disabled = index === 0;
-    down.disabled = index === events.length - 1;
+    down.disabled = index === group.length - 1;
     buttons.append(up, down, action("Editar", () => openEditor(event)), action("Apagar", () => {
       if (confirm("Apagar o evento «" + event.title + "»?") && persist(events.filter(item => item !== event))) {
         selectedId = visibleEvents()[0]?.id ?? null;
@@ -286,10 +983,11 @@ function renderDetail(event) {
 
 function render() {
   const shown = filteredEvents();
-  const all = visibleEvents();
+  const all = visibleEvents().filter(event => event.group === category.value);
   const timeline = byId("timeline");
   const activeRow = document.activeElement?.closest?.(".timeline-item")?.dataset.id;
   timeline.replaceChildren();
+  if (!shown.some(event => event.id === selectedId)) selectedId = shown[0]?.id ?? null;
   byId("count").textContent = all.length + (all.length === 1 ? " evento" : " eventos");
   for (const event of shown) {
     const row = make("button", "timeline-item");
@@ -300,7 +998,7 @@ function render() {
     const label = make("span", "timeline-text");
     label.append(make("strong", "", event.title), make("small", "", event.date || "Data por confirmar"));
     row.append(label);
-    row.insertAdjacentHTML("beforeend", icon(event.visible || playerView ? "arrow" : "lock"));
+    row.insertAdjacentHTML("beforeend", icon(canShare(event) || playerView ? "arrow" : "lock"));
     row.addEventListener("click", () => choose(event, true));
     timeline.append(row);
     if (activeRow === event.id) row.focus({ preventScroll: true });
@@ -312,8 +1010,10 @@ function render() {
 
 function reorder(event, offset) {
   const index = events.indexOf(event);
-  const target = index + offset;
-  if (target < 0 || target >= events.length) return;
+  const group = events.filter(item => item.group === event.group);
+  const adjacent = group[group.indexOf(event) + offset];
+  if (!adjacent) return;
+  const target = events.indexOf(adjacent);
   const updated = [...events];
   [updated[index], updated[target]] = [updated[target], updated[index]];
   if (persist(updated)) {
@@ -328,21 +1028,29 @@ function setPlayerView(enabled) {
   document.body.classList.toggle("player-view", enabled);
   byId("exit-player").hidden = !enabled || Boolean(snapshot);
   byId("view-label").hidden = !enabled;
+  if (snapshot?.recipient && snapshot.recipient !== "group") byId("view-label-text").textContent = "Vista de " + labels[snapshot.recipient];
+  syncCategories();
   if (!visibleEvents().some(event => event.id === selectedId)) selectedId = visibleEvents()[0]?.id ?? null;
   render();
 }
 
 function openEditor(event = null) {
   if (playerView) return;
-  draft = event ? { ...event, points: { ...event.points } } : { points: {}, visible: false, approx: false };
+  draft = event ? { ...event, points: { ...event.points } } : { points: {}, visible: false, approx: false, group: category.value };
   byId("form-title").textContent = event ? "Editar evento" : "Novo evento";
   form.reset();
   for (const field of ["title", "place", "date", "description"]) form.elements[field].value = draft[field] ?? "";
+  form.elements.group.value = draft.group;
   form.elements.visible.checked = draft.visible;
+  updateVisibilityControl();
   form.elements.approx.checked = draft.approx;
   byId("form-error").hidden = true;
   updatePosition();
   editor.showModal();
+}
+
+function updateVisibilityControl() {
+  form.elements.visible.disabled = form.elements.group.value === "dm";
 }
 
 function updatePosition() {
@@ -465,6 +1173,8 @@ byId("pick").onclick = () => {
 for (const button of document.querySelectorAll(".dismiss")) button.onclick = () => button.closest("dialog").close();
 for (const tab of byId("map-tabs").querySelectorAll("button")) tab.onclick = () => { setMap(tab.dataset.map); renderDetail(filteredEvents().find(event => event.id === selectedId)); };
 search.addEventListener("input", render);
+category.addEventListener("change", () => { search.value = ""; render(); });
+form.elements.group.addEventListener("change", updateVisibilityControl);
 
 form.addEventListener("submit", event => {
   event.preventDefault();
@@ -473,10 +1183,11 @@ form.addEventListener("submit", event => {
   const values = new FormData(form);
   const record = { ...draft, id: draft.id ?? (globalThis.crypto?.randomUUID?.() || Date.now() + "-" + Math.random()) };
   for (const field of ["title", "place", "date", "description"]) record[field] = values.get(field).trim();
-  record.visible = values.has("visible");
+  record.group = values.get("group");
+  record.visible = record.group !== "dm" && values.has("visible");
   record.approx = values.has("approx");
-  if (!record.title || !record.place || !Object.keys(record.points).length) {
-    error.textContent = "Preenche o título e o local e marca um ponto no mapa.";
+  if (!record.title || !record.place) {
+    error.textContent = "Preenche o título e o local.";
     error.hidden = false;
     return;
   }
@@ -485,6 +1196,7 @@ form.addEventListener("submit", event => {
     editor.close();
     draft = null;
     search.value = "";
+    category.value = record.group;
     choose(record, true);
     toast("Evento guardado.");
   }
@@ -544,21 +1256,23 @@ byId("download-player").onclick = async event => {
   toast("A preparar a cópia dos jogadores…");
   try {
     const mapKeys = Object.keys(maps);
-    const sharedEvents = events.filter(item => item.visible);
+    const recipient = byId("share-recipient").value;
+    const sharedEvents = events.filter(item => canShare(item, recipient));
     const [template, css, js, instrument, spectral, ...mapImages] = await Promise.all([
       getFile("index.html"), getFile("atlas.css"), getFile("atlas.js"), getFile("instrument.woff2", true), getFile("spectral.woff2", true),
       ...mapKeys.map(key => getFile(key + ".webp", true))
     ]);
     const images = Object.fromEntries(mapKeys.map((key, index) => [key, mapImages[index]]));
-    const payload = JSON.stringify({ events: sharedEvents, images }).replace(/</g, "\\u003c");
+    const payload = JSON.stringify({ events: sharedEvents, images, recipient }).replace(/</g, "\\u003c");
     const styles = css.replace("url(instrument.woff2)", 'url("' + instrument + '")').replace("url(spectral.woff2)", 'url("' + spectral + '")');
     // Omit the original campaign data and embed just the player snapshot.
-    const playerScript = js.replace(/const starterEvents = \[[\s\S]*?\n\];/, "const starterEvents = [];");
+    const playerScript = js.replace(/^const legacyEvents = .*?;$/m, "const legacyEvents = [];").replace(/const starterEvents = \[[\s\S]*?\n\];/, "const starterEvents = [];");
     const html = template
       .replace('<link rel="stylesheet" href="atlas.css">', () => "<style>" + styles + "</style>")
       .replace('<script defer src="atlas.js"></' + 'script>', "")
-      .replace("</body>", () => "<script>window.atlasSnapshot=" + payload + ";\n" + playerScript + "</" + "script></body>");
-    download("atlas-de-eberron-jogadores.html", html, "text/html;charset=utf-8");
+      .replace("</" + "body>", () => "<" + "script>window.atlasSnapshot=" + payload + ";\n" + playerScript + "</" + "script></" + "body>");
+    const names = { group: "grupo", arix: "arix", isadora: "isadora", bear: "bear-lee" };
+    download("atlas-de-eberron-" + names[recipient] + ".html", html, "text/html;charset=utf-8");
     byId("sharing").close();
     toast("Cópia dos jogadores descarregada.");
   } catch {

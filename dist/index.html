@@ -33,7 +33,7 @@
     <div class="top-actions">
       <button id="share" class="subtle dm" aria-label="Partilhar com jogadores"><svg><use href="#i-download"/></svg><span>Partilhar com jogadores</span></button>
       <button id="player" class="outline dm" aria-label="Vista dos jogadores"><svg><use href="#i-eye"/></svg><span>Vista dos jogadores</span></button>
-      <span id="view-label" class="view-label" hidden><svg><use href="#i-eye"/></svg> Vista dos jogadores</span>
+      <span id="view-label" class="view-label" hidden><svg><use href="#i-eye"/></svg> <span id="view-label-text">Vista dos jogadores</span></span>
       <button id="exit-player" class="outline" hidden>Voltar à edição</button>
     </div>
   </div>
@@ -79,6 +79,7 @@
         <div class="journal-icon"><svg><use href="#i-book"/></svg></div>
         <div><h2 id="journal-title">Cronologia</h2><p id="count"></p></div>
       </div>
+      <label class="journal-select"><span>Ver cronologia</span><select id="event-group"></select></label>
       <label class="search"><svg><use href="#i-search"/></svg><input id="search" type="search" placeholder="Pesquisar eventos…" aria-label="Pesquisar eventos"></label>
       <div class="timeline" id="timeline"></div>
       <section id="detail" class="detail" aria-live="polite" hidden></section>
@@ -91,17 +92,19 @@
     <div class="dialog-head"><h2 id="form-title">Novo evento</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
     <label>Título <input name="title" required maxlength="120" placeholder="Ex. A missão na igreja de Olarune"></label>
     <div class="form-row"><label>Local <input name="place" required maxlength="120" placeholder="Ex. Sharn · Docas"></label><label>Quando <input name="date" maxlength="100" placeholder="Ex. 15 de Olarune, 998 YK"></label></div>
+    <label>Cronologia <select name="group"><option value="campaign">Campanha</option><option value="history">História de Eberron</option><option value="arix">Arix</option><option value="isadora">Isadora</option><option value="bear">Bear Lee</option><option value="dm">Notas do DM</option></select></label>
     <label>Descrição <textarea name="description" rows="4" maxlength="2400" placeholder="O que aconteceu?"></textarea></label>
     <div class="position-row"><span id="position-status"></span><button type="button" class="outline" id="pick"><svg><use href="#i-pin"/></svg> Marcar no mapa</button></div>
     <label class="check"><input type="checkbox" name="approx"> Localização aproximada</label>
-    <label class="check"><input type="checkbox" name="visible"> Mostrar aos jogadores</label>
+    <label class="check"><input type="checkbox" name="visible"> Incluir na cópia do grupo ou da personagem</label>
     <p id="form-error" class="error" role="alert" hidden></p>
     <div class="dialog-actions"><button type="button" class="outline dismiss">Cancelar</button><button class="primary" type="submit">Guardar evento</button></div>
   </form>
 </dialog>
 <dialog id="sharing">
   <div class="dialog-head"><h2>Partilhar com jogadores</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
-  <p>Descarrega uma cópia interativa do atlas e envia o ficheiro aos jogadores. Podem abri-lo no navegador. A cópia inclui os mapas e os eventos assinalados como visíveis.</p>
+  <p>Descarrega uma cópia interativa do atlas e envia o ficheiro aos jogadores. Podem abri-lo no navegador. A cópia de grupo inclui a campanha e a história conhecidas por todos. Uma cópia individual inclui também a cronologia dessa personagem.</p>
+  <label class="journal-select"><span>Destinatário</span><select id="share-recipient"><option value="group">Grupo</option><option value="arix">Arix</option><option value="isadora">Isadora</option><option value="bear">Bear Lee</option></select></label>
   <div class="dialog-actions"><button class="primary" id="download-player"><svg><use href="#i-download"/></svg> Descarregar atlas</button></div>
 </dialog>
 <dialog id="backup-dialog">
