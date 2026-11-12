@@ -1,0 +1,679 @@
+[
+  {
+    "id": "forja-inicio",
+    "title": "O assassínio de Bonal e a Forja Esquecida",
+    "place": "Sharn · Canalizações",
+    "date": "998 YK · Sessão 1",
+    "description": "A morte de Bonal Geldem reuniu Arix, Isadora e Bear Lee. Lady Elaydren pediu-lhes que recuperassem uma relíquia Cannith. A investigação levou o grupo aos esgotos de Sharn.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "forja-schema",
+    "title": "O schema Cannith recuperado",
+    "place": "Sharn · Ruínas Cannith e Broken Anvil",
+    "date": "998 YK · Sessão 2",
+    "description": "O grupo recuperou o schema em forma de estrela de sete pontas e entregou-o a Lady Elaydren. Chegou ao nível 2 e passou a noite no Broken Anvil, por conta dela.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "three-towers",
+    "title": "A missão dos Sentinel Marshals",
+    "place": "Sharn · Three Towers, Upper Tavick’s Landing",
+    "date": "998 YK · Sessão 3",
+    "description": "Um bilhete recebido após a passagem pela Barmin Tower levou Arix ao enclave. Rock reconheceu Bear Lee como meio-irmão, mandou-o sair e deu a Arix uma missão de campo.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "olarune",
+    "title": "O schema em crescente desaparece",
+    "place": "Sharn · Igreja de Olarune",
+    "date": "998 YK · Após a sessão 3",
+    "description": "O grupo ligou o roubo do ídolo em crescente à Garra Esmeralda e à reanimação dos mortos no cemitério adjacente. Ajudou Vola Ashroot após a mordedura, soube que o sacerdote Tharok tinha desaparecido e preparou três estacas de madeira.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "docas",
+    "title": "O resgate de Tharok",
+    "place": "Sharn · Docas",
+    "date": "998 YK · Após a investigação na igreja",
+    "description": "O grupo retirou Tharok do armazém e incendiou-o. O líder da Garra Esmeralda escapou com o cofre e o schema em crescente. Na fuga, disse a Arix «I recognize you, Arix».",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ],
+      "sharn": [
+        0.203,
+        0.564
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "tharok-pistas",
+    "title": "O testemunho de Tharok",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Tharok levava água benta no bolso durante o cativeiro. O líder esteve perto dele sem reagir e Tharok ouviu-o conversar com alguém. O grupo levantou a hipótese de um changeling a trabalhar com um vampiro.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "broken-anvil-carta",
+    "title": "Uma carta aponta para Rose Quarry",
+    "place": "Sharn · Broken Anvil",
+    "date": "998 YK · Sessão mais recente",
+    "description": "O grupo enfrentou e revistou um agente do Lord of Blades. A carta que ele trazia apontava para Rose Quarry e o grupo soube que Lady Elaydren quer que procurem lá outro schema. O grupo chegou ao nível 3.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "rose-quarry-destino",
+    "title": "O próximo destino de Elaydren",
+    "place": "Rose Quarry · Fronteira de Darguun com o Mournland",
+    "date": "Em aberto · 998 YK",
+    "description": "O grupo tem uma indicação para procurar outro schema em Rose Quarry. A pista foi descoberta no Broken Anvil, em Sharn.",
+    "visible": true,
+    "approx": false,
+    "points": {
+      "khorvaire": [
+        0.4902,
+        0.8311
+      ]
+    },
+    "group": "campaign"
+  },
+  {
+    "id": "demonios",
+    "title": "O sacrifício dos couatls",
+    "place": "Eberron",
+    "date": "Era dos Demónios",
+    "description": "Segundo a tradição da Chama de Prata, dragões e couatls combateram os soberanos demoníacos. O sacrifício dos couatls ajudou a aprisioná-los.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "history"
+  },
+  {
+    "id": "dhakaan",
+    "title": "O império de Dhakaan",
+    "place": "Khorvaire",
+    "date": "Antiguidade",
+    "description": "O império goblinoide dominou grande parte do continente e desagregou-se após a guerra contra os daelkyr.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "marcas",
+    "title": "A Guerra das Marcas",
+    "place": "Khorvaire",
+    "date": "c. −1500 YK",
+    "description": "A guerra consolidou o poder das casas dragonmarked.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "galifar",
+    "title": "A fundação de Galifar",
+    "place": "Khorvaire",
+    "date": "1 YK",
+    "description": "Galifar I reuniu as Cinco Nações num reino.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "chama",
+    "title": "A Igreja da Chama de Prata",
+    "place": "Thrane",
+    "date": "299 YK",
+    "description": "A origem da Igreja está ligada à história de Tira Miron.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.438,
+        0.52
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "guerra",
+    "title": "O início da Última Guerra",
+    "place": "Khorvaire",
+    "date": "894 YK",
+    "description": "A morte de Jarot ir’Wynarn desencadeou a disputa pela sucessão.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "valenar",
+    "title": "A independência de Valenar",
+    "place": "Valenar",
+    "date": "956 YK",
+    "description": "Os Valaes Tairn tomaram território cyrano e proclamaram Valenar.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.665,
+        0.735
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "eldeen",
+    "title": "A independência dos Eldeen Reaches",
+    "place": "Eldeen Reaches · Aundair",
+    "date": "958 YK",
+    "description": "Os Eldeen Reaches separaram-se de Aundair.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.252,
+        0.44
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "warforged",
+    "title": "Os primeiros warforged vivos",
+    "place": "Khorvaire",
+    "date": "965 YK",
+    "description": "Aarren d’Cannith criou os primeiros warforged vivos.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "darguun",
+    "title": "A fundação de Darguun",
+    "place": "Darguun",
+    "date": "969 YK",
+    "description": "Haruuc liderou uma revolta goblinoide e estabeleceu Darguun em antigo território de Cyre.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.462,
+        0.793
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "mourning",
+    "title": "O Dia do Mourning",
+    "place": "Cyre · Mournland",
+    "date": "994 YK",
+    "description": "Uma catástrofe arcana devastou Cyre e deixou o Mournland.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.574,
+        0.673
+      ]
+    },
+    "group": "history"
+  },
+  {
+    "id": "tratado",
+    "title": "O Tratado de Thronehold",
+    "place": "Thronehold",
+    "date": "996 YK",
+    "description": "O tratado pôs fim à Última Guerra, reconheceu a liberdade dos warforged e proibiu a sua criação.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "history"
+  },
+  {
+    "id": "arix-adocao",
+    "title": "Sylas adota Arix",
+    "place": "Sharn",
+    "date": "Antes da campanha",
+    "description": "Sylas Karva encontrou Arix nas ruas de Sharn e adotou-a. Depois de a apanhar a procurar componentes no seu gabinete, enviou-a para a Universidade de Morgrave para espiar por sua conta.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-mending",
+    "title": "O acidente em Morgrave",
+    "place": "Sharn · Universidade de Morgrave",
+    "date": "Antes da campanha · Prólogo da sessão 1",
+    "description": "Um acidente com Mending selou os lábios de Alaric e levou à expulsão de Arix. Bonal Geldem ofereceu-se para continuar a ensiná-la por correspondência.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-documentos",
+    "title": "Os documentos de Orien e Cannith",
+    "place": "Sharn · Universidade de Morgrave",
+    "date": "Antes da campanha · Recordação durante a missão de Olarune",
+    "description": "Arix viu Bonal e Kaven dividirem documentos sobre glifos de conjuração e maquinaria. Um vampiro disfarçado de contínuo apoderou-se da informação sobre o paradeiro do schema em crescente.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-asas",
+    "title": "As asas de dragão e os Marshals",
+    "place": "Sharn",
+    "date": "Antes da campanha",
+    "description": "Arix transmitiu a Sylas o que soube de Kaven sobre o schema. Sylas ensinou-a a manifestar asas de dragão e, através de Rock, colocou-a nos Sentinel Marshals.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "arix-rock",
+    "title": "O documento sobre Rock",
+    "place": "Sharn · Gabinete de Arix",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Arix encontrou um documento segundo o qual a promoção de Rock assentou numa falsa reputação de herói de guerra.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "arix"
+  },
+  {
+    "id": "isa-denour",
+    "title": "A Derradeira Denour",
+    "place": "Local por confirmar",
+    "date": "Antes da campanha · Prólogo da sessão 2",
+    "description": "A avó de Isadora ensinou-lhe harpa e transmitiu-lhe a tradição da Derradeira Denour e o dom de tocar os fios da magia. Alfred continuou as lições após a morte da avó.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "isadora"
+  },
+  {
+    "id": "isa-wynarn",
+    "title": "Isadora, Neyo e Lucan em Wynarn",
+    "place": "Aundair · Universidade de Wynarn",
+    "date": "Antes da campanha · Prólogo da sessão mais recente",
+    "description": "A rivalidade entre Isadora e Neyo ir’Krell escondia uma atração mútua. Lucan Stellos também tinha sentimentos por Isadora.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.392,
+        0.453
+      ]
+    },
+    "group": "isadora"
+  },
+  {
+    "id": "isa-eduardo",
+    "title": "A notícia da morte de Eduardo",
+    "place": "Local por confirmar",
+    "date": "Depois da ofensiva de Vvaraak · Prólogo da sessão 2",
+    "description": "Rha trouxe a Isadora a notícia da morte do pai e tornou-se seu guarda-costas.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "isadora"
+  },
+  {
+    "id": "isa-metade",
+    "title": "A primeira proposta de Rock",
+    "place": "Sharn",
+    "date": "998 YK · Antes do resgate de Tharok",
+    "description": "Rock ofereceu-se para perdoar metade da dívida de Isadora se ela resolvesse o roubo e jantasse com ele.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "isadora"
+  },
+  {
+    "id": "isa-lucan",
+    "title": "O jantar com Rock e a missão de Lucan",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Isadora percebeu que Rock tinha sentimentos por ela. Ele propôs reduzir a dívida de Isadora para 3 000 po se ela encontrasse Lucan Stellos e resolvesse o problema. Segundo Rock, Lucan é um operacional da Cidadela de Breland, trabalha para Calderus e planeia traí-lo. Rock pediu a Isadora que tentasse dissuadi-lo. Se falhar, quer que o mate. Resolver o problema saldaria a dívida de Rock ao seu patrono.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "isadora"
+  },
+  {
+    "id": "bear-passage",
+    "title": "O nascimento de Bear Lee",
+    "place": "Passage · Aundair",
+    "date": "c. 966 YK · Prólogo da sessão 3",
+    "description": "Bear Lee nasceu em Passage, filho de Maela e Korruk, e herdou a Marca da Sentinela. A rivalidade com o meio-irmão Rock começou na infância.",
+    "visible": true,
+    "approx": false,
+    "points": {
+      "khorvaire": [
+        0.3475,
+        0.5196
+      ]
+    },
+    "group": "bear"
+  },
+  {
+    "id": "bear-vvaraak",
+    "title": "A infiltração em Vvaraak",
+    "place": "Montes de Vvaraak",
+    "date": "c. 992 YK",
+    "description": "Deneith enviou Bear Lee para se infiltrar na tribo durante a ofensiva de Eduardo. Aprendeu os costumes dos Gatekeepers e ficou noivo de Fjee-Rha, do clã Borius, que lhe deu o nome Rha-Kiuk.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "bear"
+  },
+  {
+    "id": "bear-resistencia",
+    "title": "Rha junta-se à resistência",
+    "place": "Montes de Vvaraak",
+    "date": "Durante a ofensiva de Vvaraak",
+    "description": "Rha hesitou em entregar informações e houve mortos durante o atraso. Depois de Fjee-Rha ser dada como morta, partilhou informações com a resistência. Eduardo morreu numa armadilha defensiva de Rha. Rha levou a notícia a Isadora e ofereceu-se para a proteger sem cobrar.",
+    "visible": true,
+    "approx": false,
+    "points": {},
+    "group": "bear"
+  },
+  {
+    "id": "bear-tharok",
+    "title": "O corpo de Fjee-Rha nunca apareceu",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Tharok Borius, tio de Fjee-Rha, revelou a Rha que nunca encontraram o corpo dela.",
+    "visible": true,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "group": "bear"
+  },
+  {
+    "id": "dm-skarvath",
+    "title": "Tiamat, Sylas e o Xulo Pattern",
+    "place": "Argonnessen · Pit of Five Sorrows",
+    "date": "Antiguidade · Consequências na campanha",
+    "description": "O aprisionamento de Tiamat interrompeu a criação do abishai verde Skarvath, que vive como Sylas Karva. Quer libertá-la para que conclua a sua criação. Desviou Wynarn Dreamleaf durante a guerra de Vvaraak. O Xulo Pattern deriva de investigação sobre conjuração sustentada.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.642,
+        0.615
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-xendrik",
+    "title": "O complexo sobrevivente dos gigantes",
+    "place": "Xen’drik",
+    "date": "c. −40 000 a −39 000 YK",
+    "description": "Após a guerra contra Dal Quor e a destruição da civilização dos gigantes pelos dragões, um complexo conservou instalações, vestígios da escravização dos elfos e portais de água ligados a Lamannia.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.277,
+        0.7
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-kedran",
+    "title": "Os documentos antigos e a identidade de Kedran",
+    "place": "Khorvaire",
+    "date": "Cerca de quinze séculos antes da campanha",
+    "description": "A investigação de Orien sobre glifos e maquinaria foi testada por Cannith. O relato jogado distingue o investigador Orien de Kedran Cannith. Uma revisão identifica Kedran como d’Orien. A identidade no relato jogado continua por conciliar.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.329,
+        0.354
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-rose",
+    "title": "A origem do vidro de Rose Quarry",
+    "place": "Rose Quarry · Whitehearth",
+    "date": "994 YK · Imediatamente antes do Mourning",
+    "description": "Uma máquina experimental de Whitehearth lançou vidro fundido sobre Rose Quarry e matou os habitantes. A causa do Mourning continua por esclarecer.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "khorvaire": [
+        0.4902,
+        0.8311
+      ]
+    },
+    "group": "dm"
+  },
+  {
+    "id": "dm-merrix",
+    "title": "Os interesses dos ramos Cannith",
+    "place": "Fairhaven, Sharn e Korth",
+    "date": "Depois de 994 YK",
+    "description": "Elaydren serve secretamente Merrix, que prefere associar a investigação ao ramo de Jorlanna. Merrix contacta Sylas. Os termos e o que Merrix sabe sobre o portal estão em aberto.",
+    "visible": false,
+    "approx": false,
+    "points": {},
+    "group": "dm"
+  },
+  {
+    "id": "dm-calderus",
+    "title": "O cativeiro de Tharok e a hipótese Calderus",
+    "place": "Sharn · Docas",
+    "date": "998 YK · Missão de Olarune e sessão mais recente",
+    "description": "Garrow levou o cofre e torturou Tharok para saber mais sobre o schema. Calderus é a hipótese de trabalho do DM para o vampiro que poderá ter estado em contacto com o líder. A identidade do interlocutor continua por confirmar.",
+    "visible": false,
+    "approx": true,
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ],
+      "sharn": [
+        0.203,
+        0.564
+      ]
+    },
+    "group": "dm"
+  }
+]

@@ -11,356 +11,11 @@ const storageKey = "atlas-eberron-events-v2";
 const legacyStorageKey = "atlas-eberron-events-v1";
 const labels = { campaign: "Campanha", history: "História de Eberron", arix: "Arix", isadora: "Isadora", bear: "Bear Lee", dm: "Notas do DM" };
 const category = byId("event-group");
-const legacyEvents = [["forja-inicio", "Em busca da Forja Esquecida", "Sharn · Canalizações", "Sessão 1", "Isadora, Bear Lee e Arix começaram a investigação de The Forgotten Forge e seguiram o rasto até às canalizações de Sharn."], ["forja-schema", "O schema Cannith recuperado", "Sharn · Ruínas Cannith", "Sessão 2", "O grupo recuperou o schema Cannith em forma de estrela de sete pontas e entregou-o a Lady Elaydren. Mais tarde, descansou na estalagem Broken Anvil."], ["three-towers", "A missão dos Sentinel Marshals", "Sharn · Three Towers, Upper Tavick’s Landing", "Após a Sessão 2", "O grupo encontrou Rock Lee Marshal Deneith no enclave dos Sentinel Marshals. Arix recebeu uma missão de campo."], ["olarune", "O ataque à igreja de Olarune", "Sharn · Igreja de Olarune", "Após a missão dos Marshals", "Na igreja, o grupo encontrou um schema em forma de crescente usado como ídolo. Vola Ashroot foi mordida durante o ataque e o grupo conseguiu salvá-la."], ["docas", "O resgate de Tharok", "Sharn · Docas", "Após o ataque à igreja", "O grupo resgatou Tharok e incendiou o armazém das docas. Garrow escapou com o schema."]];
 const maps = {
   mundo: { caption: "Mapa-múndi de Eberron", width: 1600, height: 1231, alt: "Mapa-múndi de Eberron, com Khorvaire, Aerenal, Xen’drik, Argonnessen e Sarlona" },
   khorvaire: { caption: "Continente de Khorvaire", width: 7680, height: 4837, alt: "Mapa de Khorvaire com cidades, nações, rios, montanhas e linhas do Lightning Rail" },
   sharn: { caption: "Sharn · Lower Wards", width: 2500, height: 3000, alt: "Mapa dos bairros inferiores de Sharn, incluindo a frente ribeirinha" }
 };
-const starterEvents = [
-  {
-    "id": "forja-inicio",
-    "title": "O assassínio de Bonal e a Forja Esquecida",
-    "place": "Sharn · Canalizações",
-    "date": "998 YK · Sessão 1",
-    "description": "A morte de Bonal Geldem reuniu Arix, Isadora e Bear Lee. Lady Elaydren pediu-lhes que recuperassem uma relíquia Cannith. A investigação levou o grupo aos esgotos de Sharn.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "forja-schema",
-    "title": "O schema Cannith recuperado",
-    "place": "Sharn · Ruínas Cannith e Broken Anvil",
-    "date": "998 YK · Sessão 2",
-    "description": "O grupo recuperou o schema em forma de estrela de sete pontas e entregou-o a Lady Elaydren. Chegou ao nível 2 e passou a noite no Broken Anvil, por conta dela.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "three-towers",
-    "title": "A missão dos Sentinel Marshals",
-    "place": "Sharn · Three Towers, Upper Tavick’s Landing",
-    "date": "998 YK · Sessão 3",
-    "description": "Um bilhete recebido após a passagem pela Barmin Tower levou Arix ao enclave. Rock reconheceu Bear Lee como meio-irmão, mandou-o sair e deu a Arix uma missão de campo.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "olarune",
-    "title": "O schema em crescente desaparece",
-    "place": "Sharn · Igreja de Olarune",
-    "date": "998 YK · Após a sessão 3",
-    "description": "O grupo ligou o roubo do ídolo em crescente à Garra Esmeralda e à reanimação dos mortos no cemitério adjacente. Ajudou Vola Ashroot após a mordedura, soube que o sacerdote Tharok tinha desaparecido e preparou três estacas de madeira.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "docas",
-    "title": "O resgate de Tharok",
-    "place": "Sharn · Docas",
-    "date": "998 YK · Após a investigação na igreja",
-    "description": "O grupo retirou Tharok do armazém e incendiou-o. O líder da Garra Esmeralda escapou com o cofre e o schema em crescente. Na fuga, disse a Arix «I recognize you, Arix».",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ],
-      "sharn": [
-        0.203,
-        0.564
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "tharok-pistas",
-    "title": "O testemunho de Tharok",
-    "place": "Sharn",
-    "date": "998 YK · Sessão mais recente",
-    "description": "Tharok levava água benta no bolso durante o cativeiro. O líder esteve perto dele sem reagir e Tharok ouviu-o conversar com alguém. O grupo levantou a hipótese de um changeling a trabalhar com um vampiro.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "broken-anvil-carta",
-    "title": "Uma carta aponta para Rose Quarry",
-    "place": "Sharn · Broken Anvil",
-    "date": "998 YK · Sessão mais recente",
-    "description": "O grupo enfrentou e revistou um agente do Lord of Blades. A carta que ele trazia apontava para Rose Quarry e o grupo soube que Lady Elaydren quer que procurem lá outro schema. O grupo chegou ao nível 3.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.274,
-        0.412
-      ],
-      "khorvaire": [
-        0.2271,
-        0.8935
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "rose-quarry-destino",
-    "title": "O próximo destino de Elaydren",
-    "place": "Rose Quarry · Fronteira de Darguun com o Mournland",
-    "date": "Em aberto · 998 YK",
-    "description": "O grupo tem uma indicação para procurar outro schema em Rose Quarry. A pista foi descoberta no Broken Anvil, em Sharn.",
-    "visible": true,
-    "approx": false,
-    "points": {
-      "khorvaire": [
-        0.4902,
-        0.8311
-      ]
-    },
-    "group": "campaign"
-  },
-  {
-    "id": "demonios",
-    "title": "O sacrifício dos couatls",
-    "place": "Eberron",
-    "date": "Era dos Demónios",
-    "description": "Segundo a tradição da Chama de Prata, dragões e couatls combateram os soberanos demoníacos. O sacrifício dos couatls ajudou a aprisioná-los.",
-    "visible": true,
-    "approx": false,
-    "points": {},
-    "group": "history"
-  },
-  {
-    "id": "dhakaan",
-    "title": "O império de Dhakaan",
-    "place": "Khorvaire",
-    "date": "Antiguidade",
-    "description": "O império goblinoide dominou grande parte do continente e desagregou-se após a guerra contra os daelkyr.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.329,
-        0.354
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "marcas",
-    "title": "A Guerra das Marcas",
-    "place": "Khorvaire",
-    "date": "c. −1500 YK",
-    "description": "A guerra consolidou o poder das casas dragonmarked.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.329,
-        0.354
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "galifar",
-    "title": "A fundação de Galifar",
-    "place": "Khorvaire",
-    "date": "1 YK",
-    "description": "Galifar I reuniu as Cinco Nações num reino.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.329,
-        0.354
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "chama",
-    "title": "A Igreja da Chama de Prata",
-    "place": "Thrane",
-    "date": "299 YK",
-    "description": "A origem da Igreja está ligada à história de Tira Miron.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "khorvaire": [
-        0.438,
-        0.52
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "guerra",
-    "title": "O início da Última Guerra",
-    "place": "Khorvaire",
-    "date": "894 YK",
-    "description": "A morte de Jarot ir’Wynarn desencadeou a disputa pela sucessão.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.329,
-        0.354
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "valenar",
-    "title": "A independência de Valenar",
-    "place": "Valenar",
-    "date": "956 YK",
-    "description": "Os Valaes Tairn tomaram território cyrano e proclamaram Valenar.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "khorvaire": [
-        0.665,
-        0.735
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "eldeen",
-    "title": "A independência dos Eldeen Reaches",
-    "place": "Eldeen Reaches · Aundair",
-    "date": "958 YK",
-    "description": "Os Eldeen Reaches separaram-se de Aundair.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "khorvaire": [
-        0.252,
-        0.44
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "warforged",
-    "title": "Os primeiros warforged vivos",
-    "place": "Khorvaire",
-    "date": "965 YK",
-    "description": "Aarren d’Cannith criou os primeiros warforged vivos.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "mundo": [
-        0.329,
-        0.354
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "darguun",
-    "title": "A fundação de Darguun",
-    "place": "Darguun",
-    "date": "969 YK",
-    "description": "Haruuc liderou uma revolta goblinoide e estabeleceu Darguun em antigo território de Cyre.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "khorvaire": [
-        0.462,
-        0.793
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "mourning",
-    "title": "O Dia do Mourning",
-    "place": "Cyre · Mournland",
-    "date": "994 YK",
-    "description": "Uma catástrofe arcana devastou Cyre e deixou o Mournland.",
-    "visible": true,
-    "approx": true,
-    "points": {
-      "khorvaire": [
-        0.574,
-        0.673
-      ]
-    },
-    "group": "history"
-  },
-  {
-    "id": "tratado",
-    "title": "O Tratado de Thronehold",
-    "place": "Thronehold",
-    "date": "996 YK",
-    "description": "O tratado pôs fim à Última Guerra, reconheceu a liberdade dos warforged e proibiu a sua criação.",
-    "visible": true,
-    "approx": false,
-    "points": {},
-    "group": "history"
-  }
-];
 
 function validEvents(records) {
   if (!Array.isArray(records) || records.length > 2000) throw new Error("Invalid event list");
@@ -383,42 +38,23 @@ function validEvents(records) {
   });
 }
 
-function loadEvents() {
-  if (snapshot) return validEvents(snapshot.events).filter(event => canShare(event, snapshot.recipient));
+function loadBrowserEvents() {
   try {
-    const stored = localStorage.getItem(storageKey);
-    if (stored) return validEvents(JSON.parse(stored));
-    const legacy = localStorage.getItem(legacyStorageKey);
-    if (!legacy) return validEvents(starterEvents);
-    const previous = validEvents(JSON.parse(legacy));
-    const defaults = new Map(legacyEvents.map(([id, ...fields]) => [id, fields]));
-    const starter = new Map(starterEvents.map(event => [event.id, event]));
-    const migrated = previous.map(event => {
-      const fields = defaults.get(event.id);
-      if (!fields) return event;
-      const updated = { ...event };
-      ["title", "place", "date", "description"].forEach((field, index) => {
-        if (event[field] === fields[index]) updated[field] = starter.get(event.id)[field];
-      });
-      return updated;
-    });
-    const previousIds = new Set(previous.map(event => event.id));
-    const additions = starterEvents.filter(event => !defaults.has(event.id) && !previousIds.has(event.id));
-    const result = validEvents([...migrated, ...additions]);
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(result));
-    } catch {
-      // Keep the migrated events usable even when storage is full.
-    }
-    return result;
+    const stored = localStorage.getItem(storageKey) || localStorage.getItem(legacyStorageKey);
+    return stored ? validEvents(JSON.parse(stored)) : [];
   } catch {
-    return validEvents(starterEvents);
+    return [];
   }
 }
 
-let events = loadEvents();
+let events = snapshot ? validEvents(snapshot.events).filter(event => canShare(event, snapshot.recipient)) : [];
+let hostedRole = "group";
+let revision;
+let saving = false;
+const canManage = () => !snapshot && hostedRole === "dm";
+const playerRecipient = () => snapshot?.recipient ?? (hostedRole === "dm" ? "group" : hostedRole);
 let selectedId = events[0]?.id ?? null;
-let playerView = Boolean(snapshot);
+let playerView = true;
 let currentMap = "khorvaire";
 let draft = null;
 let picking = false;
@@ -444,14 +80,31 @@ function toast(message) {
   toastTimer = setTimeout(() => { node.hidden = true; }, 4300);
 }
 
-function persist(updated) {
+async function atlasRequest(path, body) {
+  const options = body === undefined ? {} : {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  };
+  const response = await fetch("/api/atlas" + path, { ...options, cache: "no-store" });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "O serviço do atlas está temporariamente indisponível.");
+  return data;
+}
+
+async function persist(updated) {
+  if (!canManage() || saving) return false;
+  saving = true;
   try {
-    localStorage.setItem(storageKey, JSON.stringify(updated));
+    const saved = await atlasRequest("", { revision, events: updated });
+    revision = saved.revision;
     events = updated;
     return true;
-  } catch {
-    toast("O navegador não conseguiu guardar os eventos. Verifica o espaço disponível.");
+  } catch (error) {
+    toast(error.message);
     return false;
+  } finally {
+    saving = false;
   }
 }
 
@@ -461,12 +114,13 @@ function canShare(event, recipient = "group") {
 }
 
 function visibleEvents() {
-  return playerView ? events.filter(event => canShare(event, snapshot?.recipient)) : events;
+  return playerView ? events.filter(event => canShare(event, playerRecipient())) : events;
 }
 
 function syncCategories() {
-  const before = category.value || (Object.hasOwn(labels, snapshot?.recipient) ? snapshot.recipient : "campaign");
-  const allowed = playerView ? new Set(["campaign", "history", snapshot?.recipient]) : new Set(Object.keys(labels));
+  const recipient = playerRecipient();
+  const before = category.value || (Object.hasOwn(labels, recipient) ? recipient : "campaign");
+  const allowed = playerView ? new Set(["campaign", "history", recipient]) : new Set(Object.keys(labels));
   category.replaceChildren();
   for (const [value, label] of Object.entries(labels)) {
     if (!allowed.has(value)) continue;
@@ -635,8 +289,8 @@ function renderDetail(event) {
     const down = action("Mover para depois na cronologia", () => reorder(event, 1), "icon-button", "down");
     up.disabled = index === 0;
     down.disabled = index === group.length - 1;
-    buttons.append(up, down, action("Editar", () => openEditor(event)), action("Apagar", () => {
-      if (confirm("Apagar o evento «" + event.title + "»?") && persist(events.filter(item => item !== event))) {
+    buttons.append(up, down, action("Editar", () => openEditor(event)), action("Apagar", async () => {
+      if (confirm("Apagar o evento «" + event.title + "»?") && await persist(events.filter(item => item !== event))) {
         selectedId = visibleEvents()[0]?.id ?? null;
         render();
         toast("Evento apagado.");
@@ -673,7 +327,7 @@ function render() {
   drawMarkers();
 }
 
-function reorder(event, offset) {
+async function reorder(event, offset) {
   const index = events.indexOf(event);
   const group = events.filter(item => item.group === event.group);
   const adjacent = group[group.indexOf(event) + offset];
@@ -681,19 +335,20 @@ function reorder(event, offset) {
   const target = events.indexOf(adjacent);
   const updated = [...events];
   [updated[index], updated[target]] = [updated[target], updated[index]];
-  if (persist(updated)) {
+  if (await persist(updated)) {
     render();
     toast("Ordem da cronologia atualizada.");
   }
 }
 
 function setPlayerView(enabled) {
+  enabled = enabled || !canManage();
   playerView = enabled;
   search.value = "";
   document.body.classList.toggle("player-view", enabled);
-  byId("exit-player").hidden = !enabled || Boolean(snapshot);
+  byId("exit-player").hidden = !enabled || !canManage();
   byId("view-label").hidden = !enabled;
-  if (snapshot?.recipient && snapshot.recipient !== "group") byId("view-label-text").textContent = "Vista de " + labels[snapshot.recipient];
+  byId("view-label-text").textContent = labels[playerRecipient()] ? "Vista de " + labels[playerRecipient()] : "Vista dos jogadores";
   syncCategories();
   if (!visibleEvents().some(event => event.id === selectedId)) selectedId = visibleEvents()[0]?.id ?? null;
   render();
@@ -841,7 +496,7 @@ search.addEventListener("input", render);
 category.addEventListener("change", () => { search.value = ""; render(); });
 form.elements.group.addEventListener("change", updateVisibilityControl);
 
-form.addEventListener("submit", event => {
+form.addEventListener("submit", async event => {
   event.preventDefault();
   if (playerView || !draft) return;
   const error = byId("form-error");
@@ -857,7 +512,7 @@ form.addEventListener("submit", event => {
     return;
   }
   const updated = draft.id ? events.map(item => item.id === draft.id ? record : item) : [...events, record];
-  if (persist(updated)) {
+  if (await persist(updated)) {
     editor.close();
     draft = null;
     search.value = "";
@@ -878,12 +533,12 @@ function download(filename, content, type) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-byId("export").onclick = () => download("eberron-campanha.json", JSON.stringify({ version: 1, events }, null, 2), "application/json");
+byId("export").onclick = () => canManage() && download("eberron-campanha.json", JSON.stringify({ version: 1, events }, null, 2), "application/json");
 byId("import").onclick = () => byId("import-file").click();
 byId("import-file").onchange = async event => {
   const file = event.target.files[0];
   event.target.value = "";
-  if (!file) return;
+  if (!file || !canManage()) return;
   try {
     if (file.size > 6_000_000) throw new Error("File too large");
     const backup = JSON.parse(await file.text());
@@ -896,7 +551,7 @@ byId("import-file").onchange = async event => {
     const existingIds = new Set(events.map(item => item.id));
     const additions = imported.filter(item => !existingIds.has(item.id));
     if (!privateTimelines && !confirm("Substituir os eventos deste navegador pelos " + imported.length + " eventos da cópia?")) return;
-    if (persist(privateTimelines ? [...events, ...additions] : imported)) {
+    if (await persist(privateTimelines ? [...events, ...additions] : imported)) {
       if (privateTimelines) category.value = (additions[0] ?? imported[0])?.group ?? "campaign";
       selectedId = events[0]?.id ?? null;
       search.value = "";
@@ -924,6 +579,7 @@ async function getFile(path, asDataUrl = false) {
 }
 
 byId("download-player").onclick = async event => {
+  if (!canManage()) return;
   const button = event.currentTarget;
   button.disabled = true;
   toast("A preparar a cópia dos jogadores…");
@@ -938,12 +594,10 @@ byId("download-player").onclick = async event => {
     const images = Object.fromEntries(mapKeys.map((key, index) => [key, mapImages[index]]));
     const payload = JSON.stringify({ events: sharedEvents, images, recipient }).replace(/</g, "\\u003c");
     const styles = css.replace("url(instrument.woff2)", 'url("' + instrument + '")').replace("url(spectral.woff2)", 'url("' + spectral + '")');
-    // Omit the original campaign data and embed just the player snapshot.
-    const playerScript = js.replace(/^const legacyEvents = .*?;$/m, "const legacyEvents = [];").replace(/const starterEvents = \[[\s\S]*?\n\];/, "const starterEvents = [];");
     const html = template
       .replace('<link rel="stylesheet" href="atlas.css">', () => "<style>" + styles + "</style>")
       .replace('<script defer src="atlas.js"></' + 'script>', "")
-      .replace("</" + "body>", () => "<" + "script>window.atlasSnapshot=" + payload + ";\n" + playerScript + "</" + "script></" + "body>");
+      .replace("</" + "body>", () => "<" + "script>window.atlasSnapshot=" + payload + ";\n" + js + "</" + "script></" + "body>");
     const names = { group: "grupo", arix: "arix", isadora: "isadora", bear: "bear-lee" };
     download("atlas-de-eberron-" + names[recipient] + ".html", html, "text/html;charset=utf-8");
     byId("sharing").close();
@@ -973,3 +627,118 @@ new ResizeObserver(() => {
 
 setMap("khorvaire");
 setPlayerView(playerView);
+if (!snapshot) void connectAtlas();
+
+async function connectAtlas() {
+  const notice = byId("account-notice");
+  let token;
+  try {
+    const invite = new URLSearchParams(location.hash.slice(1)).get("convite");
+    if (invite && /^[a-f0-9]{48}$/.test(invite)) {
+      sessionStorage.setItem("atlas-convite", invite);
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+    token = sessionStorage.getItem("atlas-convite");
+  } catch {
+    // Public events remain available when browser storage is disabled.
+  }
+  byId("signin").hidden = false;
+  try {
+    let state = await atlasRequest("");
+    if (token && state.authenticated) {
+      sessionStorage.removeItem("atlas-convite");
+      try {
+        await atlasRequest("/claim", { token });
+        state = await atlasRequest("");
+        notice.textContent = "A tua conta está ligada a " + labels[state.role] + ".";
+      } catch (error) {
+        notice.textContent = error.message;
+      }
+      notice.hidden = false;
+    } else if (token) {
+      notice.textContent = "Inicia sessão com a tua conta ChatGPT para aceitar o convite.";
+      notice.hidden = false;
+    }
+    hostedRole = state.role;
+    revision = state.revision;
+    events = validEvents(state.events);
+    byId("signin").hidden = state.authenticated;
+    byId("signout").hidden = !state.authenticated;
+    setPlayerView(!canManage());
+    if (labels[hostedRole] && hostedRole !== "dm") {
+      category.value = hostedRole;
+      render();
+    }
+    if (canManage()) {
+      byId("import-local").hidden = !localStorage.getItem(storageKey) && !localStorage.getItem(legacyStorageKey);
+    }
+  } catch {
+    notice.textContent = "Não foi possível carregar a cronologia. Atualiza a página para voltar a tentar.";
+    notice.hidden = false;
+  }
+}
+
+byId("import-local").onclick = async () => {
+  if (!canManage()) return;
+  const local = loadBrowserEvents();
+  if (!local.length) { toast("Não foram encontrados eventos neste navegador."); return; }
+  if (!confirm("Importar os eventos guardados neste navegador? As versões locais com o mesmo ID substituem as do atlas.")) return;
+  const merged = new Map(events.map(event => [event.id, event]));
+  for (const event of local) merged.set(event.id, event);
+  if (await persist([...merged.values()])) {
+    byId("backup-dialog").close();
+    render();
+    toast("Eventos do navegador importados.");
+  }
+};
+
+async function showInvites() {
+  const slots = byId("invite-slots");
+  const { slots: access } = await atlasRequest("/invites");
+  slots.replaceChildren();
+  for (const slot of access) {
+    const row = make("div", "invite-row");
+    const status = make("span", "", labels[slot.role]);
+    status.append(make("small", "", slot.claimed ? "Conta ligada" : slot.pending ? "Convite pendente" : "Sem acesso"));
+    const controls = make("div");
+    if (!slot.claimed) controls.append(action(slot.pending ? "Novo convite" : "Criar convite", async () => {
+      try {
+        const { token } = await atlasRequest("/invites", { action: "invite", role: slot.role });
+        byId("invite-link").value = new URL("/#convite=" + token, location.origin).href;
+        byId("invite-output").hidden = false;
+        await showInvites();
+        byId("invite-link").focus();
+        byId("invite-link").select();
+      } catch (error) { toast(error.message); }
+    }, "outline"));
+    if (slot.claimed || slot.pending) controls.append(action("Revogar", async () => {
+      if (!confirm("Revogar o acesso ou convite de " + labels[slot.role] + "?")) return;
+      try {
+        await atlasRequest("/invites", { action: "revoke", role: slot.role });
+        byId("invite-output").hidden = true;
+        byId("invite-link").value = "";
+        await showInvites();
+      } catch (error) { toast(error.message); }
+    }, "outline"));
+    row.append(status, controls);
+    slots.append(row);
+  }
+}
+
+byId("invites").onclick = async () => {
+  if (!canManage()) return;
+  byId("invite-output").hidden = true;
+  byId("invite-link").value = "";
+  try {
+    await showInvites();
+    byId("invite-dialog").showModal();
+  } catch (error) { toast(error.message); }
+};
+byId("copy-invite").onclick = async () => {
+  try {
+    await navigator.clipboard.writeText(byId("invite-link").value);
+    toast("Link copiado.");
+  } catch {
+    byId("invite-link").select();
+  }
+};
