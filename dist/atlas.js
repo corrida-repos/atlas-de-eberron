@@ -556,7 +556,7 @@ byId("download-player").onclick = async event => {
     const playerScript = js.replace(/const starterEvents = \[[\s\S]*?\n\];/, "const starterEvents = [];");
     const html = template
       .replace('<link rel="stylesheet" href="atlas.css">', () => "<style>" + styles + "</style>")
-      .replace('<script defer src="atlas.js"></script>', "")
+      .replace('<script defer src="atlas.js"></' + 'script>', "")
       .replace("</body>", () => "<script>window.atlasSnapshot=" + payload + ";\n" + playerScript + "</" + "script></body>");
     download("atlas-de-eberron-jogadores.html", html, "text/html;charset=utf-8");
     byId("sharing").close();
