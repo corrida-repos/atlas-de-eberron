@@ -154,7 +154,7 @@
   {
     "id": "rose-quarry-destino",
     "title": "O próximo destino de Elaydren",
-    "place": "Rose Quarry · Fronteira de Darguun com o Mournland",
+    "place": "Rose Quarry · Fronteira de Darguun com a Terra do Pesar",
     "date": "Em aberto · 998 YK",
     "description": "O grupo tem uma indicação para procurar outro schema em Rose Quarry. A pista foi descoberta no Broken Anvil, em Sharn.",
     "visible": true,
@@ -389,10 +389,10 @@
   },
   {
     "id": "mourning",
-    "title": "O Dia do Mourning",
-    "place": "Cyre · Mournland",
+    "title": "O Dia do Pesar",
+    "place": "Cyre · Terra do Pesar",
     "date": "994 YK",
-    "description": "Uma catástrofe arcana devastou Cyre e deixou o Mournland.",
+    "description": "Uma catástrofe arcana devastou Cyre e deixou a Terra do Pesar.",
     "visible": true,
     "approx": true,
     "points": {
@@ -903,8 +903,8 @@
     "id": "dm-rose",
     "title": "A origem do vidro de Rose Quarry",
     "place": "Rose Quarry · Whitehearth",
-    "date": "994 YK · Imediatamente antes do Mourning",
-    "description": "Uma máquina experimental de Whitehearth lançou vidro fundido sobre Rose Quarry e matou os habitantes. A causa do Mourning continua por esclarecer.",
+    "date": "994 YK · Imediatamente antes do Pesar",
+    "description": "Uma máquina experimental de Whitehearth lançou vidro fundido sobre Rose Quarry e matou os habitantes. A causa do Pesar continua por esclarecer.",
     "visible": false,
     "approx": true,
     "points": {

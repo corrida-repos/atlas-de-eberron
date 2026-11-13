@@ -60,7 +60,21 @@ function newToken() {
   return Array.from(crypto.getRandomValues(new Uint8Array(24)), value => value.toString(16).padStart(2, "0")).join("");
 }
 
-const chronologyVersion = 2;
+const chronologyVersion = 3;
+
+function localizeEvent(event: AtlasEvent): AtlasEvent {
+  const localize = (value: string) => value
+    .replace(/\bdo Mournland\b/gi, "da Terra do Pesar")
+    .replace(/\bno Mournland\b/gi, "na Terra do Pesar")
+    .replace(/\bao Mournland\b/gi, "à Terra do Pesar")
+    .replace(/\b(o|O) Mournland\b/gi, (_, article: string) =>
+      article === "O" ? "A Terra do Pesar" : "a Terra do Pesar"
+    )
+    .replace(/\bMournland\b/gi, "Terra do Pesar")
+    .replace(/\bMourning\b/gi, "Pesar");
+  return { ...event, title: localize(event.title), place: localize(event.place),
+    date: localize(event.date), description: localize(event.description) };
+}
 
 function mergeChronology(saved: AtlasEvent[]): AtlasEvent[] {
   const current = new Map(seed.map(event => [event.id, event]));
@@ -120,7 +134,8 @@ async function atlasRecord(db: D1Database) {
   for (let attempt = 0; record && record.chronology_version < chronologyVersion && attempt < 3; attempt++) {
     const savedEvents = JSON.parse(record.events) as AtlasEvent[];
     const merged = record.chronology_version < 1 ? mergeChronology(savedEvents) : savedEvents;
-    const events = JSON.stringify(addMapLocations(merged));
+    const located = record.chronology_version < 2 ? addMapLocations(merged) : merged;
+    const events = JSON.stringify(located.map(localizeEvent));
     const saved = await db.prepare(
       "UPDATE atlas SET events = ?, revision = revision + 1, chronology_version = ? WHERE id = 1 AND revision = ? AND chronology_version = ? RETURNING revision, events, chronology_version"
     ).bind(events, chronologyVersion, record.revision, record.chronology_version).first<typeof record>();
@@ -199,7 +214,7 @@ async function route(request: Request, env: Cloudflare.Env) {
       return json({ error: "A cronologia contém dados inválidos." }, 400);
     }
     const revision = await db.prepare("UPDATE atlas SET events = ?, revision = revision + 1 WHERE id = 1 AND revision = ? RETURNING revision")
-      .bind(JSON.stringify(events), body.revision).first<number>("revision");
+      .bind(JSON.stringify(events.map(localizeEvent)), body.revision).first<number>("revision");
     if (!revision) return json({ error: "A cronologia mudou noutro dispositivo. Atualiza a página e volta a tentar." }, 409);
     return json({ revision });
   }
