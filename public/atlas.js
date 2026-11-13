@@ -417,10 +417,9 @@ function setPlayerView(enabled) {
   render();
 }
 
-function openEditor(event = null) {
+function openEditor(event) {
   if (playerView) return;
-  draft = event ? { ...event, points: { ...event.points } } : { points: {}, visible: false, approx: false, group: category.value === "all" ? "campaign" : category.value };
-  byId("form-title").textContent = event ? "Editar evento" : "Novo evento";
+  draft = { ...event, points: { ...event.points } };
   form.reset();
   for (const field of ["title", "place", "date", "description"]) form.elements[field].value = draft[field] ?? "";
   form.elements.group.value = draft.group;
@@ -542,7 +541,6 @@ backToEvent.onclick = () => {
   revealSelectedRow();
   timeline.querySelector('[aria-current="true"]')?.focus({ preventScroll: true });
 };
-byId("add").onclick = () => openEditor();
 byId("player").onclick = () => setPlayerView(true);
 byId("exit-player").onclick = () => setPlayerView(false);
 byId("share").onclick = () => byId("sharing").showModal();
@@ -567,7 +565,7 @@ form.addEventListener("submit", async event => {
   if (playerView || !draft) return;
   const error = byId("form-error");
   const values = new FormData(form);
-  const record = { ...draft, id: draft.id ?? (globalThis.crypto?.randomUUID?.() || Date.now() + "-" + Math.random()) };
+  const record = { ...draft };
   for (const field of ["title", "place", "date", "description"]) record[field] = values.get(field).trim();
   record.group = values.get("group");
   record.visible = record.group !== "dm" && values.has("visible");
@@ -582,7 +580,7 @@ form.addEventListener("submit", async event => {
     error.hidden = false;
     return;
   }
-  const updated = draft.id ? events.map(item => item.id === draft.id ? record : item) : [...events, record];
+  const updated = events.map(item => item.id === draft.id ? record : item);
   if (await persist(updated)) {
     editor.close();
     draft = null;

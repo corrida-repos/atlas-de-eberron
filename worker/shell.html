@@ -11,6 +11,7 @@
 </head>
 <body class="player-view">
 <svg xmlns="http://www.w3.org/2000/svg" class="symbols" aria-hidden="true">
+<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5z"/></symbol>
 <symbol id="i-location" viewBox="0 0 24 32"><path d="M12 31C9 27 2 19 2 12a10 10 0 1 1 20 0c0 7-7 15-10 19Z"/><circle cx="12" cy="12" r="3.5"/></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
@@ -30,7 +31,10 @@
 <header class="topbar">
   <div class="top-inner">
     <div class="atlas-title">
-      <a class="brand" href="#" id="home">Atlas de Eberron</a>
+      <a class="brand" href="#" id="home">
+        <span class="brand-icon"><svg aria-hidden="true"><use href="#i-compass"/></svg></span>
+        <span>Atlas de Eberron</span>
+      </a>
       <h1>Saga da Forja Esquecida</h1>
     </div>
     <div class="top-actions">
@@ -76,7 +80,6 @@
       <div class="journal-head">
         <div class="journal-icon"><svg><use href="#i-book"/></svg></div>
         <div><h2 id="journal-title">Cronologia</h2><p id="count"></p></div>
-        <button class="primary dm" id="add"><svg><use href="#i-plus"/></svg> Novo evento</button>
       </div>
       <label class="journal-select"><span>Ver cronologia</span><select id="event-group"></select></label>
       <label class="search"><svg><use href="#i-search"/></svg><input id="search" type="search" placeholder="Pesquisar eventos…" aria-label="Pesquisar eventos"></label>
@@ -91,7 +94,7 @@
 </dialog>
 <dialog id="editor">
   <form id="event-form">
-    <div class="dialog-head"><h2 id="form-title">Novo evento</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+    <div class="dialog-head"><h2>Editar evento</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
     <label>Título <input name="title" required maxlength="120" placeholder="Ex. A missão na igreja de Olarune"></label>
     <div class="form-row"><label>Local <input name="place" required maxlength="120" placeholder="Ex. Sharn · Docas"></label><label>Quando <input name="date" maxlength="100" placeholder="Ex. 15 de Olarune, 998 YK"></label></div>
     <label>Cronologia <select name="group"><option value="campaign">Campanha</option><option value="history">História de Eberron</option><option value="arix">Arix</option><option value="isadora">Isadora</option><option value="bear">Bear Lee</option><option value="dm">Notas do DM</option></select></label>
