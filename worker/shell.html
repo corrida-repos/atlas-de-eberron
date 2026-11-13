@@ -97,7 +97,10 @@
     <div class="dialog-head"><h2>Editar evento</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
     <label>Título <input name="title" required maxlength="120" placeholder="Ex. A missão na igreja de Olarune"></label>
     <div class="form-row"><label>Local <input name="place" required maxlength="120" placeholder="Ex. Sharn · Docas"></label><label>Quando <input name="date" maxlength="100" placeholder="Ex. 15 de Olarune, 998 YK"></label></div>
-    <label>Cronologia <select name="group"><option value="campaign">Campanha</option><option value="history">História de Eberron</option><option value="arix">Arix</option><option value="isadora">Isadora</option><option value="bear">Bear Lee</option><option value="dm">Notas do DM</option></select></label>
+    <div class="form-row">
+      <label>Cronologia <select name="group"></select></label>
+      <label>Posição na cronologia <select name="after"></select></label>
+    </div>
     <label>Descrição <textarea name="description" rows="4" maxlength="2400" placeholder="O que aconteceu?"></textarea></label>
     <div class="position-row"><span id="position-status"></span><button type="button" class="outline" id="pick"><svg><use href="#i-pin"/></svg> Marcar no mapa</button></div>
     <label class="check"><input type="checkbox" name="approx"> Localização aproximada</label>

@@ -60,7 +60,49 @@ function newToken() {
   return Array.from(crypto.getRandomValues(new Uint8Array(24)), value => value.toString(16).padStart(2, "0")).join("");
 }
 
-const chronologyVersion = 3;
+const chronologyVersion = 4;
+
+const chronologicalRank = new Map(seed.map((event, index) => [event.id, index]));
+
+function yearOf(event: AtlasEvent): number | undefined {
+  const year = event.date.match(/([−-]?\d+)(?:\s*[–-]\s*[−-]?\d+)?\s+YK\b/i)?.[1];
+  return year === undefined ? undefined : Number(year.replace("−", "-"));
+}
+
+function insertByDate(ordered: AtlasEvent[], event: AtlasEvent) {
+  const destination = ordered.findIndex(item => item.id === "rose-quarry-destino");
+  const limit = destination < 0 ? ordered.length : destination;
+  const year = yearOf(event);
+  const next = year === undefined ? -1 : ordered.findIndex((item, index) =>
+    index < limit && (yearOf(item) ?? -Infinity) > year
+  );
+  ordered.splice(next < 0 ? limit : next, 0, event);
+}
+
+function orderChronology(events: AtlasEvent[]): AtlasEvent[] {
+  const ordered = events.filter(event => chronologicalRank.has(event.id))
+    .sort((a, b) => chronologicalRank.get(a.id)! - chronologicalRank.get(b.id)!);
+  for (const event of events) {
+    if (!chronologicalRank.has(event.id)) insertByDate(ordered, event);
+  }
+  return ordered;
+}
+
+function placeNewEvents(events: AtlasEvent[], previous: AtlasEvent[]): AtlasEvent[] {
+  const ids = new Set(previous.map(event => event.id));
+  const ordered = events.filter(event => ids.has(event.id));
+  for (const event of events) {
+    if (ids.has(event.id)) continue;
+    const rank = chronologicalRank.get(event.id);
+    if (rank === undefined) {
+      insertByDate(ordered, event);
+    } else {
+      const next = ordered.findIndex(item => (chronologicalRank.get(item.id) ?? -1) > rank);
+      ordered.splice(next < 0 ? ordered.length : next, 0, event);
+    }
+  }
+  return ordered;
+}
 
 function localizeEvent(event: AtlasEvent): AtlasEvent {
   const localize = (value: string) => value
@@ -111,7 +153,7 @@ function addMapLocations(events: AtlasEvent[]): AtlasEvent[] {
   return events.map(event => {
     const reference = byId.get(event.id);
     if (!reference || reference.group !== event.group) return event;
-    const matchingPlace = event.place === reference.place ||
+    const matchingPlace = localizeEvent(event).place === reference.place ||
       (event.id === "broken-anvil-carta" && event.place === "Sharn · Broken Anvil") ||
       (event.id === "isa-denour" && event.place === "Local por confirmar") ||
       (event.id === "dm-merrix" && event.place === "Fairhaven, Sharn e Korth");
@@ -135,7 +177,7 @@ async function atlasRecord(db: D1Database) {
     const savedEvents = JSON.parse(record.events) as AtlasEvent[];
     const merged = record.chronology_version < 1 ? mergeChronology(savedEvents) : savedEvents;
     const located = record.chronology_version < 2 ? addMapLocations(merged) : merged;
-    const events = JSON.stringify(located.map(localizeEvent));
+    const events = JSON.stringify(orderChronology(located.map(localizeEvent)));
     const saved = await db.prepare(
       "UPDATE atlas SET events = ?, revision = revision + 1, chronology_version = ? WHERE id = 1 AND revision = ? AND chronology_version = ? RETURNING revision, events, chronology_version"
     ).bind(events, chronologyVersion, record.revision, record.chronology_version).first<typeof record>();
@@ -213,10 +255,15 @@ async function route(request: Request, env: Cloudflare.Env) {
     if (!events || typeof body.revision !== "number" || !Number.isSafeInteger(body.revision)) {
       return json({ error: "A cronologia contém dados inválidos." }, 400);
     }
+    const current = await atlasRecord(db);
+    if (current.revision !== body.revision) {
+      return json({ error: "A cronologia mudou noutro dispositivo. Atualiza a página e volta a tentar." }, 409);
+    }
+    const ordered = placeNewEvents(events.map(localizeEvent), JSON.parse(current.events));
     const revision = await db.prepare("UPDATE atlas SET events = ?, revision = revision + 1 WHERE id = 1 AND revision = ? RETURNING revision")
-      .bind(JSON.stringify(events.map(localizeEvent)), body.revision).first<number>("revision");
+      .bind(JSON.stringify(ordered), body.revision).first<number>("revision");
     if (!revision) return json({ error: "A cronologia mudou noutro dispositivo. Atualiza a página e volta a tentar." }, 409);
-    return json({ revision });
+    return json({ revision, events: ordered });
   }
   if (url.pathname === "/api/atlas/invites") {
     if (!isCharacter(body.role)) return json({ error: "Personagem inválida." }, 400);

@@ -9,7 +9,11 @@ const search = byId("search");
 const snapshot = window.atlasSnapshot;
 const storageKey = "atlas-eberron-events-v2";
 const legacyStorageKey = "atlas-eberron-events-v1";
-const labels = { campaign: "Campanha", history: "História de Eberron", arix: "Arix", isadora: "Isadora", bear: "Bear Lee", dm: "Notas do DM" };
+const labels = {
+  campaign: "Eventos da Campanha", history: "Eventos Históricos", arix: "Vida de Arix",
+  isadora: "Vida de Isadora", bear: "Vida de Rha-Kyuk", dm: "Eventos Secretos"
+};
+const characterNames = { arix: "Arix", isadora: "Isadora", bear: "Bear Lee" };
 const category = byId("event-group");
 const timeline = byId("timeline");
 const mapCard = byId("map-card");
@@ -105,7 +109,7 @@ async function persist(updated) {
   try {
     const saved = await atlasRequest("", { revision, events: updated });
     revision = saved.revision;
-    events = updated;
+    events = validEvents(saved.events);
     return true;
   } catch (error) {
     toast(error.message);
@@ -347,7 +351,7 @@ function renderDetail(event) {
     if (!positionFor(event)) detail.append(make("p", "map-note", "Este local está fora da área deste mapa."));
   }
   if (!playerView) {
-    const group = events.filter(item => item.group === event.group);
+    const group = categoryEvents();
     const index = group.indexOf(event);
     const up = action("Mover para antes na cronologia", () => reorder(event, -1), "icon-button", "up");
     const down = action("Mover para depois na cronologia", () => reorder(event, 1), "icon-button", "down");
@@ -392,12 +396,12 @@ function render() {
 
 async function reorder(event, offset) {
   const index = events.indexOf(event);
-  const group = events.filter(item => item.group === event.group);
+  const group = categoryEvents();
   const adjacent = group[group.indexOf(event) + offset];
   if (!adjacent) return;
-  const target = events.indexOf(adjacent);
   const updated = [...events];
-  [updated[index], updated[target]] = [updated[target], updated[index]];
+  updated.splice(index, 1);
+  updated.splice(events.indexOf(adjacent), 0, event);
   if (await persist(updated)) {
     render();
     toast("Ordem da cronologia atualizada.");
@@ -411,7 +415,7 @@ function setPlayerView(enabled) {
   document.body.classList.toggle("player-view", enabled);
   byId("exit-player").hidden = !enabled || !canManage();
   byId("view-label").hidden = !enabled;
-  byId("view-label-text").textContent = labels[playerRecipient()] ? "Vista de " + labels[playerRecipient()] : "Vista dos jogadores";
+  byId("view-label-text").textContent = characterNames[playerRecipient()] ? "Vista de " + characterNames[playerRecipient()] : "Vista dos jogadores";
   syncCategories();
   if (!visibleEvents().some(event => event.id === selectedId)) selectedId = visibleEvents()[0]?.id ?? null;
   render();
@@ -422,7 +426,13 @@ function openEditor(event) {
   draft = { ...event, points: { ...event.points } };
   form.reset();
   for (const field of ["title", "place", "date", "description"]) form.elements[field].value = draft[field] ?? "";
+  form.elements.group.replaceChildren(...Object.entries(labels).map(([value, label]) => new Option(label, value)));
   form.elements.group.value = draft.group;
+  form.elements.after.replaceChildren(
+    new Option("Manter posição atual", ""),
+    new Option("No início da cronologia", "start"),
+    ...events.filter(item => item.id !== event.id).map(item => new Option(item.title, "after:" + item.id))
+  );
   form.elements.visible.checked = draft.visible;
   updateVisibilityControl();
   form.elements.approx.checked = draft.approx;
@@ -581,6 +591,12 @@ form.addEventListener("submit", async event => {
     return;
   }
   const updated = events.map(item => item.id === draft.id ? record : item);
+  const placement = values.get("after");
+  if (placement) {
+    updated.splice(updated.indexOf(record), 1);
+    const anchor = placement === "start" ? -1 : updated.findIndex(item => "after:" + item.id === placement);
+    updated.splice(anchor + 1, 0, record);
+  }
   if (await persist(updated)) {
     editor.close();
     draft = null;
@@ -719,7 +735,7 @@ async function connectAtlas() {
       try {
         await atlasRequest("/claim", { token });
         state = await atlasRequest("");
-        notice.textContent = "A tua conta está ligada a " + labels[state.role] + ".";
+        notice.textContent = "A tua conta está ligada a " + characterNames[state.role] + ".";
       } catch (error) {
         notice.textContent = error.message;
       }
@@ -767,7 +783,7 @@ async function showInvites() {
   slots.replaceChildren();
   for (const slot of access) {
     const row = make("div", "invite-row");
-    const status = make("span", "", labels[slot.role]);
+    const status = make("span", "", characterNames[slot.role]);
     status.append(make("small", "", slot.claimed ? "Conta ligada" : slot.pending ? "Convite pendente" : "Sem acesso"));
     const controls = make("div");
     if (!slot.claimed) controls.append(action(slot.pending ? "Novo convite" : "Criar convite", async () => {
@@ -781,7 +797,7 @@ async function showInvites() {
       } catch (error) { toast(error.message); }
     }, "outline"));
     if (slot.claimed || slot.pending) controls.append(action("Revogar", async () => {
-      if (!confirm("Revogar o acesso ou convite de " + labels[slot.role] + "?")) return;
+      if (!confirm("Revogar o acesso ou convite de " + characterNames[slot.role] + "?")) return;
       try {
         await atlasRequest("/invites", { action: "revoke", role: slot.role });
         byId("invite-output").hidden = true;
