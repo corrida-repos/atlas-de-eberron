@@ -160,7 +160,6 @@ function approximateOnMap(event) {
 
 function drawMarkers() {
   const groups = new Map();
-  const all = categoryEvents();
   for (const event of filteredEvents()) {
     const point = positionFor(event);
     if (!point) continue;
@@ -176,16 +175,16 @@ function drawMarkers() {
     const [x, y] = positionFor(group[0]);
     const city = group[0].place.split(" · ")[0];
     const sameCity = group.every(event => event.place.split(" · ")[0] === city);
-    const groupLabel = group.length > 1 ? "Ver " + group.length + " eventos" + (sameCity ? " em " + city : " neste local") : group[0].title;
+    const groupLabel = group.length > 1 ? "Ver eventos" + (sameCity ? " em " + city : " neste local") : group[0].title;
     const marker = existing.get(key) ?? make("button");
     existing.delete(key);
     marker.dataset.point = key;
     marker.className = "marker" + (selected ? " active" : "") + (group.every(approximateOnMap) ? " approx" : "") + (group.length > 1 ? " cluster" : "");
     marker.style.left = state.x + x * state.width * state.scale + "px";
-    marker.style.top = state.y + y * state.height * state.scale - 5 + "px";
+    marker.style.top = state.y + y * state.height * state.scale + "px";
     marker.title = groupLabel;
     marker.setAttribute("aria-label", groupLabel);
-    marker.replaceChildren(document.createTextNode(group.length > 1 ? group.length : all.indexOf(group[0]) + 1));
+    marker.innerHTML = icon("location");
     marker.setAttribute("aria-pressed", String(Boolean(selected)));
     if (group.length > 1) marker.setAttribute("aria-haspopup", "dialog");
     else marker.removeAttribute("aria-haspopup");
@@ -548,7 +547,6 @@ byId("player").onclick = () => setPlayerView(true);
 byId("exit-player").onclick = () => setPlayerView(false);
 byId("share").onclick = () => byId("sharing").showModal();
 byId("backup").onclick = () => byId("backup-dialog").showModal();
-byId("credits").onclick = () => byId("credits-dialog").showModal();
 byId("cancel-pick").onclick = () => endPick(null);
 byId("pick").onclick = () => {
   editor.close();

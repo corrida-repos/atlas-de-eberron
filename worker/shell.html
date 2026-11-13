@@ -11,7 +11,7 @@
 </head>
 <body class="player-view">
 <svg xmlns="http://www.w3.org/2000/svg" class="symbols" aria-hidden="true">
-<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5z"/></symbol>
+<symbol id="i-location" viewBox="0 0 24 32"><path d="M12 31C9 27 2 19 2 12a10 10 0 1 1 20 0c0 7-7 15-10 19Z"/><circle cx="12" cy="12" r="3.5"/></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
@@ -29,27 +29,21 @@
 </svg>
 <header class="topbar">
   <div class="top-inner">
-    <a class="brand" href="#" id="home"><span class="sigil"><svg><use href="#i-compass"/></svg></span> Atlas de Eberron</a>
+    <div class="atlas-title">
+      <a class="brand" href="#" id="home">Atlas de Eberron</a>
+      <h1>Saga da Forja Esquecida</h1>
+    </div>
     <div class="top-actions">
       <a class="outline" id="signin" href="/signin-with-chatgpt?return_to=%2F" target="_top" hidden>Iniciar sessão</a>
       <a class="subtle" id="signout" href="/signout-with-chatgpt?return_to=%2F" target="_top" hidden>Terminar sessão</a>
       <button class="outline dm" id="invites">Acessos</button>
-      <button id="share" class="subtle dm" aria-label="Partilhar com jogadores"><svg><use href="#i-download"/></svg><span>Partilhar com jogadores</span></button>
-      <button id="player" class="outline dm" aria-label="Vista dos jogadores"><svg><use href="#i-eye"/></svg><span>Vista dos jogadores</span></button>
+      <button id="player" class="outline dm" aria-label="Vista dos jogadores">Vista dos jogadores</button>
       <span id="view-label" class="view-label" hidden><svg><use href="#i-eye"/></svg> <span id="view-label-text">Vista dos jogadores</span></span>
       <button id="exit-player" class="outline" hidden>Voltar à edição</button>
     </div>
   </div>
 </header>
 <main>
-  <section class="masthead">
-    <div>
-      <p class="eyebrow"><span>✦</span> D&amp;D / Diário de campanha</p>
-      <h1>Saga da Forja Esquecida</h1>
-      <p class="intro">Explora o mapa e segue os acontecimentos da campanha.</p>
-    </div>
-    <button class="primary dm" id="add"><svg><use href="#i-plus"/></svg> Novo evento</button>
-  </section>
   <p id="account-notice" class="account-notice" role="status" hidden></p>
   <div class="workspace">
     <section class="map-card" id="map-card" aria-label="Mapa da campanha">
@@ -76,13 +70,13 @@
       <div class="map-foot">
         <span><span class="legend-dot"></span> Evento <span class="legend-approx"></span> Local aproximado</span>
         <button id="back-to-event" class="link" hidden>Voltar ao evento</button>
-        <button id="credits" class="link">Créditos dos mapas</button>
       </div>
     </section>
     <aside class="journal" aria-labelledby="journal-title">
       <div class="journal-head">
         <div class="journal-icon"><svg><use href="#i-book"/></svg></div>
         <div><h2 id="journal-title">Cronologia</h2><p id="count"></p></div>
+        <button class="primary dm" id="add"><svg><use href="#i-plus"/></svg> Novo evento</button>
       </div>
       <label class="journal-select"><span>Ver cronologia</span><select id="event-group"></select></label>
       <label class="search"><svg><use href="#i-search"/></svg><input id="search" type="search" placeholder="Pesquisar eventos…" aria-label="Pesquisar eventos"></label>
@@ -90,7 +84,6 @@
       <section id="detail" class="detail" aria-live="polite" hidden></section>
     </aside>
   </div>
-  <footer><span>Campanha de Eberron</span><button class="link dm" id="backup">Cópia de segurança</button></footer>
 </main>
 <dialog id="cluster-dialog" aria-labelledby="cluster-title">
   <div class="dialog-head"><h2 id="cluster-title">Eventos neste local</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
@@ -127,17 +120,13 @@
   <div class="dialog-head"><h2>Acessos dos jogadores</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
   <p>Cria um convite para cada personagem e envia-o à pessoa certa. O link pode ser usado uma vez e expira ao fim de sete dias. Depois de entrar com a conta ChatGPT, o jogador fica associado à personagem.</p>
   <div id="invite-slots"></div>
+  <div class="dialog-actions">
+    <button class="outline" id="share" type="button">Partilhar com jogadores</button>
+    <button class="outline" id="backup" type="button">Cópia de segurança</button>
+  </div>
   <label id="invite-output" class="invite-output" hidden><span>Link de convite</span><input id="invite-link" type="text" readonly><button id="copy-invite" class="outline" type="button">Copiar link</button></label>
 </dialog>
-<dialog id="credits-dialog">
-  <div class="dialog-head"><h2>Créditos dos mapas</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
-  <ul class="credits-list">
-    <li><a href="https://andysdnd.wordpress.com/maps/" target="_blank" rel="noopener">Eberron · mapa-múndi</a> — Lee Moyer.</li>
-    <li><a href="https://www.reddit.com/r/Eberron/comments/x4f0ia/a_true_and_accurate_map_of_khorvaire_eberron_the/" target="_blank" rel="noopener">Khorvaire · versão para jogadores</a> — Tolemyyn d’Sivis.</li>
-    <li><a href="https://www.worldanvil.com/w/eberron-papervolcano/map/5e719548-e2ed-4751-95c7-8472d65baf09" target="_blank" rel="noopener">Sharn · Lower Wards</a> — Dennis Kauth e Rob Lazzaretti.</li>
-  </ul>
-  <p>Eberron é um cenário de Dungeons &amp; Dragons da Wizards of the Coast, criado por Keith Baker.</p>
-</dialog>
+<!-- Map artwork: Lee Moyer (Eberron), Tolemyyn d’Sivis (Khorvaire), Dennis Kauth and Rob Lazzaretti (Sharn). -->
 <div id="toast" role="status" hidden></div>
 </body>
 </html>
