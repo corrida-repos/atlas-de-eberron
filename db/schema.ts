@@ -3,6 +3,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 export const atlas = sqliteTable("atlas", {
   id: integer("id").primaryKey(),
   revision: integer("revision").notNull(),
+  chronologyVersion: integer("chronology_version").notNull().default(0),
   events: text("events").notNull(),
 });
 

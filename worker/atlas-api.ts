@@ -1,4 +1,5 @@
 import seed from "./events.json";
+import previousFields from "./chronology-v1-baseline.json";
 
 const characterRoles = ["arix", "isadora", "bear"] as const;
 const groups = new Set<string>(["campaign", "history", ...characterRoles, "dm"]);
@@ -45,13 +46,55 @@ function newToken() {
   return Array.from(crypto.getRandomValues(new Uint8Array(24)), value => value.toString(16).padStart(2, "0")).join("");
 }
 
-async function atlasRecord(db: D1Database) {
-  let record = await db.prepare("SELECT revision, events FROM atlas WHERE id = 1").first<{ revision: number; events: string }>();
-  if (!record) {
-    await db.prepare("INSERT OR IGNORE INTO atlas (id, revision, events) VALUES (1, 1, ?)").bind(JSON.stringify(seed)).run();
-    record = await db.prepare("SELECT revision, events FROM atlas WHERE id = 1").first<{ revision: number; events: string }>();
+const chronologyVersion = 1;
+
+function mergeChronology(saved: typeof seed): typeof seed {
+  const current = new Map(seed.map(event => [event.id, event]));
+  const baseline = previousFields as Record<string, Record<string, unknown>>;
+  const updated = saved.map(event => {
+    const next = current.get(event.id);
+    const before = baseline[event.id];
+    if (!next || !before || event.group !== next.group) return event;
+    const fields = Object.entries(before).filter(([key, value]) =>
+      JSON.stringify(event[key as keyof typeof event]) === JSON.stringify(value)
+    );
+    return { ...event, ...Object.fromEntries(fields.map(([key]) => [key, next[key as keyof typeof next]])) };
+  });
+
+  const ids = new Set(saved.map(event => event.id));
+  for (const [index, event] of seed.entries()) {
+    if (ids.has(event.id) || !newChronologyIds.has(event.id)) continue;
+    const anchor = seed.slice(0, index).reverse().find(item => item.group === event.group && ids.has(item.id));
+    const position = anchor ? updated.findIndex(item => item.id === anchor.id) + 1 : updated.length;
+    updated.splice(position, 0, event);
+    ids.add(event.id);
   }
-  if (!record) throw new Error("Atlas unavailable");
+  return updated;
+}
+
+const newChronologyIds = new Set([
+  "windshire-ofensiva", "windshire-fim", "isa-dreamleaf", "isa-fortuna",
+  "bear-ritual", "bear-korran", "bear-despedida", "bear-rock",
+  "dm-windshire", "dm-visao", "dm-rock-sylas"
+]);
+
+async function atlasRecord(db: D1Database) {
+  const read = () => db.prepare("SELECT revision, events, chronology_version FROM atlas WHERE id = 1")
+    .first<{ revision: number; events: string; chronology_version: number }>();
+  let record = await read();
+  if (!record) {
+    await db.prepare("INSERT OR IGNORE INTO atlas (id, revision, events, chronology_version) VALUES (1, 1, ?, ?)")
+      .bind(JSON.stringify(seed), chronologyVersion).run();
+    record = await read();
+  }
+  for (let attempt = 0; record && record.chronology_version < chronologyVersion && attempt < 3; attempt++) {
+    const events = JSON.stringify(mergeChronology(JSON.parse(record.events)));
+    const saved = await db.prepare(
+      "UPDATE atlas SET events = ?, revision = revision + 1, chronology_version = ? WHERE id = 1 AND revision = ? AND chronology_version = ? RETURNING revision, events, chronology_version"
+    ).bind(events, chronologyVersion, record.revision, record.chronology_version).first<typeof record>();
+    record = saved ?? await read();
+  }
+  if (!record || record.chronology_version < chronologyVersion) throw new Error("Atlas unavailable");
   return record;
 }
 

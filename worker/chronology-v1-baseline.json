@@ -1,0 +1,45 @@
+{
+  "olarune": {
+    "title": "O schema em crescente desaparece",
+    "place": "Sharn · Igreja de Olarune",
+    "description": "O grupo ligou o roubo do ídolo em crescente à Garra Esmeralda e à reanimação dos mortos no cemitério adjacente. Ajudou Vola Ashroot após a mordedura, soube que o sacerdote Tharok tinha desaparecido e preparou três estacas de madeira."
+  },
+  "docas": {
+    "description": "O grupo retirou Tharok do armazém e incendiou-o. O líder da Garra Esmeralda escapou com o cofre e o schema em crescente. Na fuga, disse a Arix «I recognize you, Arix»."
+  },
+  "broken-anvil-carta": {
+    "title": "Uma carta aponta para Rose Quarry",
+    "description": "O grupo enfrentou e revistou um agente do Lord of Blades. A carta que ele trazia apontava para Rose Quarry e o grupo soube que Lady Elaydren quer que procurem lá outro schema. O grupo chegou ao nível 3."
+  },
+  "arix-documentos": {
+    "description": "Arix viu Bonal e Kaven dividirem documentos sobre glifos de conjuração e maquinaria. Um vampiro disfarçado de contínuo apoderou-se da informação sobre o paradeiro do schema em crescente."
+  },
+  "arix-asas": {
+    "description": "Arix transmitiu a Sylas o que soube de Kaven sobre o schema. Sylas ensinou-a a manifestar asas de dragão e, através de Rock, colocou-a nos Sentinel Marshals."
+  },
+  "isa-wynarn": {
+    "description": "A rivalidade entre Isadora e Neyo ir’Krell escondia uma atração mútua. Lucan Stellos também tinha sentimentos por Isadora."
+  },
+  "isa-eduardo": {
+    "place": "Local por confirmar",
+    "date": "Depois da ofensiva de Vvaraak · Prólogo da sessão 2",
+    "description": "Rha trouxe a Isadora a notícia da morte do pai e tornou-se seu guarda-costas."
+  },
+  "isa-lucan": {
+    "description": "Isadora percebeu que Rock tinha sentimentos por ela. Ele propôs reduzir a dívida de Isadora para 3 000 po se ela encontrasse Lucan Stellos e resolvesse o problema. Segundo Rock, Lucan é um operacional da Cidadela de Breland, trabalha para Calderus e planeia traí-lo. Rock pediu a Isadora que tentasse dissuadi-lo. Se falhar, quer que o mate. Resolver o problema saldaria a dívida de Rock ao seu patrono."
+  },
+  "bear-passage": {
+    "description": "Bear Lee nasceu em Passage, filho de Maela e Korruk, e herdou a Marca da Sentinela. A rivalidade com o meio-irmão Rock começou na infância."
+  },
+  "bear-vvaraak": {
+    "date": "c. 992 YK",
+    "description": "Deneith enviou Bear Lee para se infiltrar na tribo durante a ofensiva de Eduardo. Aprendeu os costumes dos Gatekeepers e ficou noivo de Fjee-Rha, do clã Borius, que lhe deu o nome Rha-Kiuk."
+  },
+  "bear-resistencia": {
+    "date": "Durante a ofensiva de Vvaraak",
+    "description": "Rha hesitou em entregar informações e houve mortos durante o atraso. Depois de Fjee-Rha ser dada como morta, partilhou informações com a resistência. Eduardo morreu numa armadilha defensiva de Rha. Rha levou a notícia a Isadora e ofereceu-se para a proteger sem cobrar."
+  },
+  "dm-calderus": {
+    "description": "Garrow levou o cofre e torturou Tharok para saber mais sobre o schema. Calderus é a hipótese de trabalho do DM para o vampiro que poderá ter estado em contacto com o líder. A identidade do interlocutor continua por confirmar."
+  }
+}

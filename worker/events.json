@@ -61,10 +61,10 @@
   },
   {
     "id": "olarune",
-    "title": "O schema em crescente desaparece",
-    "place": "Sharn · Igreja de Olarune",
+    "title": "O schema em crescente desaparece da Quiet Crescent",
+    "place": "Sharn · Quiet Crescent, junto às Dragon Crypts",
     "date": "998 YK · Após a sessão 3",
-    "description": "O grupo ligou o roubo do ídolo em crescente à Garra Esmeralda e à reanimação dos mortos no cemitério adjacente. Ajudou Vola Ashroot após a mordedura, soube que o sacerdote Tharok tinha desaparecido e preparou três estacas de madeira.",
+    "description": "Na Quiet Crescent, igreja de Olarune, o grupo ligou o roubo do ídolo em crescente à Garra Esmeralda e aos mortos reanimados do cemitério adjacente. Ajudou Vola Ashroot após a mordedura e soube que Tharok Borius, sacerdote e guardião, tinha desaparecido. Isadora preparou três estacas de madeira.",
     "visible": true,
     "approx": true,
     "points": {
@@ -84,7 +84,7 @@
     "title": "O resgate de Tharok",
     "place": "Sharn · Docas",
     "date": "998 YK · Após a investigação na igreja",
-    "description": "O grupo retirou Tharok do armazém e incendiou-o. O líder da Garra Esmeralda escapou com o cofre e o schema em crescente. Na fuga, disse a Arix «I recognize you, Arix».",
+    "description": "O grupo resgatou Tharok do armazém e incendiou o edifício. O líder da Garra Esmeralda escapou com o cofre e o schema em crescente. Na fuga, disse a Arix «I recognize you, Arix». A entrega formal de Tharok e o reencontro com Vola continuam por confirmar.",
     "visible": true,
     "approx": true,
     "points": {
@@ -125,10 +125,10 @@
   },
   {
     "id": "broken-anvil-carta",
-    "title": "Uma carta aponta para Rose Quarry",
+    "title": "A carta de Rose Quarry e o regresso ao Broken Anvil",
     "place": "Sharn · Broken Anvil",
     "date": "998 YK · Sessão mais recente",
-    "description": "O grupo enfrentou e revistou um agente do Lord of Blades. A carta que ele trazia apontava para Rose Quarry e o grupo soube que Lady Elaydren quer que procurem lá outro schema. O grupo chegou ao nível 3.",
+    "description": "O grupo revistou um agente do Lord of Blades no Broken Anvil. A carta que ele trazia apontava para Rose Quarry, onde Lady Elaydren quer que procurem outro schema. O grupo chegou ao nível 3 e a próxima sessão começa no Broken Anvil. A posição do confronto na sequência da última sessão ficou por confirmar.",
     "visible": true,
     "approx": true,
     "points": {
@@ -315,6 +315,22 @@
     "group": "history"
   },
   {
+    "id": "windshire-ofensiva",
+    "group": "history",
+    "title": "A ofensiva de Windshire",
+    "place": "Windshire e Montes de Vvaraak",
+    "date": "c. 992 YK",
+    "description": "Eduardo ir’Denour lançou uma ofensiva na fronteira ocidental, apresentada como uma recuperação de terras dos Denour ou de Aundair. A Casa Deneith reforçou as forças de Windshire.",
+    "points": {
+      "khorvaire": [
+        0.3465,
+        0.4561
+      ]
+    },
+    "visible": true,
+    "approx": true
+  },
+  {
     "id": "mourning",
     "title": "O Dia do Mourning",
     "place": "Cyre · Mournland",
@@ -329,6 +345,17 @@
       ]
     },
     "group": "history"
+  },
+  {
+    "id": "windshire-fim",
+    "group": "history",
+    "title": "A morte de Eduardo e o fim da ofensiva",
+    "place": "Vvaraak",
+    "date": "c. 995–996 YK",
+    "description": "Eduardo ir’Denour morreu durante a campanha. A ofensiva acabou por fracassar.",
+    "points": {},
+    "visible": true,
+    "approx": false
   },
   {
     "id": "tratado",
@@ -386,7 +413,7 @@
     "title": "Os documentos de Orien e Cannith",
     "place": "Sharn · Universidade de Morgrave",
     "date": "Antes da campanha · Recordação durante a missão de Olarune",
-    "description": "Arix viu Bonal e Kaven dividirem documentos sobre glifos de conjuração e maquinaria. Um vampiro disfarçado de contínuo apoderou-se da informação sobre o paradeiro do schema em crescente.",
+    "description": "Em Morgrave, Arix ouviu Bonal e o provost Kaven discutir cartas Orien–Cannith com cerca de 1 500 anos. Um investigador Orien estudava glifos de conjuração pesada e Kedran, associado a Cannith no relato do prólogo, construiu uma máquina para os materializar. Um contínuo espiou-os e usou teletransporte. Arix suspeitou que fosse um vampiro e que tivesse obtido a pista sobre o schema em crescente.",
     "visible": true,
     "approx": true,
     "points": {
@@ -406,7 +433,7 @@
     "title": "As asas de dragão e os Marshals",
     "place": "Sharn",
     "date": "Antes da campanha",
-    "description": "Arix transmitiu a Sylas o que soube de Kaven sobre o schema. Sylas ensinou-a a manifestar asas de dragão e, através de Rock, colocou-a nos Sentinel Marshals.",
+    "description": "Kaven contou a Arix mais sobre o schema lunar. Ela transmitiu a Sylas apenas o essencial e ele ensinou-a a manifestar asas de dragão. Através de Rock, Sylas colocou-a nos Sentinel Marshals, onde trabalha em investigação documental e apoia casos. Arix também o ouviu mencionar «Merrix» numa conversa reservada.",
     "visible": true,
     "approx": true,
     "points": {
@@ -457,7 +484,7 @@
     "title": "Isadora, Neyo e Lucan em Wynarn",
     "place": "Aundair · Universidade de Wynarn",
     "date": "Antes da campanha · Prólogo da sessão mais recente",
-    "description": "A rivalidade entre Isadora e Neyo ir’Krell escondia uma atração mútua. Lucan Stellos também tinha sentimentos por Isadora.",
+    "description": "Isadora conhecia Neyo ir’Krell desde nova. Na Universidade de Wynarn, a rivalidade entre os dois escondia uma atração mútua. Isadora também conheceu Lucan Stellos na universidade.",
     "visible": true,
     "approx": true,
     "points": {
@@ -469,15 +496,42 @@
     "group": "isadora"
   },
   {
+    "id": "isa-dreamleaf",
+    "group": "isadora",
+    "title": "Os Denour descobrem a Wynarn Dreamleaf",
+    "place": "Altos de Vvaraak",
+    "date": "Antes de c. 992 YK",
+    "description": "A família de Isadora descobriu que a Wynarn Dreamleaf, uma planta rara, crescia nos Altos de Vvaraak.",
+    "points": {},
+    "visible": true,
+    "approx": false
+  },
+  {
     "id": "isa-eduardo",
     "title": "A notícia da morte de Eduardo",
-    "place": "Local por confirmar",
-    "date": "Depois da ofensiva de Vvaraak · Prólogo da sessão 2",
-    "description": "Rha trouxe a Isadora a notícia da morte do pai e tornou-se seu guarda-costas.",
+    "place": "Vvaraak e Solar dos Denour",
+    "date": "c. 995–996 YK · Prólogo da sessão 2",
+    "description": "Eduardo morreu durante a ofensiva. Rha levou pessoalmente a notícia a Isadora e tornou-se seu guarda-costas. Isadora julgava que a proteção fazia parte de um acordo profissional com a Casa Deneith, a quem a família ficou profundamente endividada.",
     "visible": true,
     "approx": false,
     "points": {},
     "group": "isadora"
+  },
+  {
+    "id": "isa-fortuna",
+    "group": "isadora",
+    "title": "Isadora tenta recuperar a fortuna dos Denour",
+    "place": "Windshire",
+    "date": "996–998 YK",
+    "description": "Com o seu dom a começar a manifestar-se, Isadora fez negócios e investimentos imobiliários para tentar recuperar a fortuna da família.",
+    "points": {
+      "khorvaire": [
+        0.3465,
+        0.4561
+      ]
+    },
+    "visible": true,
+    "approx": true
   },
   {
     "id": "isa-metade",
@@ -504,7 +558,7 @@
     "title": "O jantar com Rock e a missão de Lucan",
     "place": "Sharn",
     "date": "998 YK · Sessão mais recente",
-    "description": "Isadora percebeu que Rock tinha sentimentos por ela. Ele propôs reduzir a dívida de Isadora para 3 000 po se ela encontrasse Lucan Stellos e resolvesse o problema. Segundo Rock, Lucan é um operacional da Cidadela de Breland, trabalha para Calderus e planeia traí-lo. Rock pediu a Isadora que tentasse dissuadi-lo. Se falhar, quer que o mate. Resolver o problema saldaria a dívida de Rock ao seu patrono.",
+    "description": "Isadora percebeu que Rock tinha sentimentos por ela. Ele propôs reduzir a dívida para 3 000 po se ela encontrasse Lucan Stellos e resolvesse o problema. Segundo Rock, Lucan é um operacional da Cidadela de Breland que trabalha para Calderus e planeia traí-lo. Rock pediu a Isadora que tentasse dissuadi-lo, contando com os sentimentos que, segundo ele, Lucan teve por ela. Se falhar, quer que o mate. Resolver o problema saldaria a dívida de Rock ao seu patrono.",
     "visible": true,
     "approx": true,
     "points": {
@@ -524,7 +578,7 @@
     "title": "O nascimento de Bear Lee",
     "place": "Passage · Aundair",
     "date": "c. 966 YK · Prólogo da sessão 3",
-    "description": "Bear Lee nasceu em Passage, filho de Maela e Korruk, e herdou a Marca da Sentinela. A rivalidade com o meio-irmão Rock começou na infância.",
+    "description": "Segundo a história da família, depois da separação dos Eldeen Reaches houve revoltas de trabalhadores orcs e proprietários locais recorreram à Casa Deneith para as reprimir. A família Lee mudou-se de Karrlakton para Passage. Korruk defendeu Maela de Garrick e os dois homens morreram no confronto. Maela já estava grávida de Bear Lee. Ele nasceu em Passage com a Marca da Sentinela e cresceu em rivalidade com o meio-irmão Rock.",
     "visible": true,
     "approx": false,
     "points": {
@@ -539,23 +593,81 @@
     "id": "bear-vvaraak",
     "title": "A infiltração em Vvaraak",
     "place": "Montes de Vvaraak",
-    "date": "c. 992 YK",
-    "description": "Deneith enviou Bear Lee para se infiltrar na tribo durante a ofensiva de Eduardo. Aprendeu os costumes dos Gatekeepers e ficou noivo de Fjee-Rha, do clã Borius, que lhe deu o nome Rha-Kiuk.",
+    "date": "c. 992–994 YK",
+    "description": "A Casa Deneith enviou Bear Lee para se infiltrar entre os habitantes de Vvaraak, valendo-se da sua ascendência e das origens do pai nos Eldeen Reaches. Integrou-se na tribo e aprendeu as práticas druídicas dos Gatekeepers. Nos Altos crescia Wynarn Dreamleaf. Ficou noivo de Fjee-Rha Borius, druida Gatekeeper que costumava assumir a forma de coruja-do-vale.",
     "visible": true,
     "approx": false,
     "points": {},
     "group": "bear"
   },
   {
+    "id": "bear-ritual",
+    "group": "bear",
+    "title": "Fjee-Rha dá a Bear Lee o nome Rha-Kiuk",
+    "place": "Vvaraak",
+    "date": "Durante a guerra de Windshire",
+    "description": "Após uma visão profética, Fjee-Rha marcou-o num ritual e deu-lhe o nome Rha-Kiuk, «Barragem das Cinco Tormentas». Bear Lee já tinha a Marca da Sentinela.",
+    "points": {},
+    "visible": true,
+    "approx": false
+  },
+  {
     "id": "bear-resistencia",
     "title": "Rha junta-se à resistência",
     "place": "Montes de Vvaraak",
-    "date": "Durante a ofensiva de Vvaraak",
-    "description": "Rha hesitou em entregar informações e houve mortos durante o atraso. Depois de Fjee-Rha ser dada como morta, partilhou informações com a resistência. Eduardo morreu numa armadilha defensiva de Rha. Rha levou a notícia a Isadora e ofereceu-se para a proteger sem cobrar.",
+    "date": "992–995 YK",
+    "description": "Rha hesitou em entregar informação militar que podia proteger a tribo e houve mortos. Quando Fjee-Rha foi dada como morta, por volta de 994–995 YK, Rha acreditou na notícia, rompeu com os comandantes e passou informações à resistência, lutando ao lado da tribo.",
     "visible": true,
     "approx": false,
     "points": {},
     "group": "bear"
+  },
+  {
+    "id": "bear-korran",
+    "group": "bear",
+    "title": "A armadilha do Desfiladeiro de Korran",
+    "place": "Desfiladeiro de Korran",
+    "date": "c. 995 YK",
+    "description": "Rha preparou uma armadilha defensiva para travar a ofensiva. Eduardo caiu nela e morreu. Rha sabe que foi responsável. A armadilha destinava-se à defesa da tribo e Eduardo caiu nela sem ser o alvo específico.",
+    "points": {},
+    "visible": true,
+    "approx": false
+  },
+  {
+    "id": "bear-despedida",
+    "group": "bear",
+    "title": "Rha sai da Casa Deneith",
+    "place": "Windshire",
+    "date": "c. 995–996 YK",
+    "description": "A ofensiva fracassou e um superior da Casa Deneith dispensou Rha formalmente após a deserção. Rha levou a notícia da morte de Eduardo a Isadora e ofereceu-se para a proteger sem cobrar.",
+    "points": {
+      "khorvaire": [
+        0.3465,
+        0.4561
+      ]
+    },
+    "visible": true,
+    "approx": true
+  },
+  {
+    "id": "bear-rock",
+    "group": "bear",
+    "title": "Bear Lee reencontra Rock",
+    "place": "Sharn · Three Towers",
+    "date": "998 YK · Sessão 3",
+    "description": "Depois de se afastar da família, Bear Lee perdeu o rasto da carreira de Rock. Em Sharn, descobriu que o meio-irmão tinha subido nos Sentinel Marshals e era superior de Arix.",
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "visible": true,
+    "approx": true
   },
   {
     "id": "bear-tharok",
@@ -657,7 +769,7 @@
     "title": "O cativeiro de Tharok e a hipótese Calderus",
     "place": "Sharn · Docas",
     "date": "998 YK · Missão de Olarune e sessão mais recente",
-    "description": "Garrow levou o cofre e torturou Tharok para saber mais sobre o schema. Calderus é a hipótese de trabalho do DM para o vampiro que poderá ter estado em contacto com o líder. A identidade do interlocutor continua por confirmar.",
+    "description": "Garrow reanimou os mortos para roubar a Quiet Crescent. Percebeu que Vola pouco sabia sobre o schema, raptou Tharok, levou o cofre com a peça e torturou o sacerdote nas docas. Calderus é a hipótese de trabalho do DM para o vampiro que poderá ter estado em contacto com o líder. A identidade do interlocutor continua por confirmar.",
     "visible": false,
     "approx": true,
     "points": {
@@ -675,5 +787,52 @@
       ]
     },
     "group": "dm"
+  },
+  {
+    "id": "dm-windshire",
+    "group": "dm",
+    "title": "Os interesses de Sylas na guerra de Windshire",
+    "place": "Windshire e Altos de Vvaraak",
+    "date": "c. 992–996 YK",
+    "description": "Sylas prometeu a Eduardo que podia conseguir um mercado através da Casa Jorasco se conquistasse a zona da Wynarn Dreamleaf e facilitou o contrato com a Casa Deneith. O compromisso de Jorasco ficou por comprovar. Sylas desviou a pequena quantidade de Dreamleaf recolhida pelas forças Denour. O comércio nunca se concretizou.",
+    "points": {
+      "khorvaire": [
+        0.3465,
+        0.4561
+      ]
+    },
+    "visible": false,
+    "approx": true
+  },
+  {
+    "id": "dm-visao",
+    "group": "dm",
+    "title": "A visão profética de Fjee-Rha",
+    "place": "Vvaraak",
+    "date": "Durante a guerra de Windshire",
+    "description": "A visão que antecedeu o ritual em que Fjee-Rha deu o nome Rha-Kiuk a Bear Lee tem uma ligação a Tiamat.",
+    "points": {},
+    "visible": false,
+    "approx": false
+  },
+  {
+    "id": "dm-rock-sylas",
+    "group": "dm",
+    "title": "A dívida de Rock a Sylas Karva",
+    "place": "Sharn",
+    "date": "998 YK · Sessão mais recente",
+    "description": "Sylas Karva ajudou Rock a obter a promoção. Resolver o problema com Lucan saldaria a dívida de Rock a Sylas. O relato do jantar deixa em aberto se Rock revelou esse nome a Isadora.",
+    "points": {
+      "mundo": [
+        0.274,
+        0.412
+      ],
+      "khorvaire": [
+        0.2271,
+        0.8935
+      ]
+    },
+    "visible": false,
+    "approx": true
   }
 ]
