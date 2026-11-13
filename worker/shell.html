@@ -52,7 +52,7 @@
   </section>
   <p id="account-notice" class="account-notice" role="status" hidden></p>
   <div class="workspace">
-    <section class="map-card" aria-label="Mapa da campanha">
+    <section class="map-card" id="map-card" aria-label="Mapa da campanha">
       <div class="map-bar">
         <nav id="map-tabs" aria-label="Escala do mapa">
           <button type="button" data-map="mundo" aria-pressed="false">Mundo</button>
@@ -75,6 +75,7 @@
       </div>
       <div class="map-foot">
         <span><span class="legend-dot"></span> Evento <span class="legend-approx"></span> Local aproximado</span>
+        <button id="back-to-event" class="link" hidden>Voltar ao evento</button>
         <button id="credits" class="link">Créditos dos mapas</button>
       </div>
     </section>
@@ -91,6 +92,10 @@
   </div>
   <footer><span>Campanha de Eberron</span><button class="link dm" id="backup">Cópia de segurança</button></footer>
 </main>
+<dialog id="cluster-dialog" aria-labelledby="cluster-title">
+  <div class="dialog-head"><h2 id="cluster-title">Eventos neste local</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <div id="cluster-events"></div>
+</dialog>
 <dialog id="editor">
   <form id="event-form">
     <div class="dialog-head"><h2 id="form-title">Novo evento</h2><button type="button" class="icon-button dismiss" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>

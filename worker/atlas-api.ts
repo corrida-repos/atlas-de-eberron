@@ -1,4 +1,4 @@
-import seed from "./events.json";
+import eventSeed from "./events.json";
 import previousFields from "./chronology-v1-baseline.json";
 
 const characterRoles = ["arix", "isadora", "bear"] as const;
@@ -7,6 +7,20 @@ const mapKeys = new Set(["mundo", "khorvaire", "sharn"]);
 const inviteDuration = 7 * 24 * 60 * 60 * 1000;
 type CharacterRole = (typeof characterRoles)[number];
 type Viewer = "dm" | CharacterRole | "group";
+
+type AtlasEvent = {
+  id: string;
+  title: string;
+  place: string;
+  date: string;
+  description: string;
+  visible: boolean;
+  approx: boolean;
+  points: Partial<Record<"mundo" | "khorvaire" | "sharn", number[]>>;
+  group: string;
+};
+
+const seed: AtlasEvent[] = eventSeed;
 
 function json(body: unknown, status = 200) {
   return Response.json(body, { status, headers: { "Cache-Control": "private, no-store" } });
@@ -34,7 +48,7 @@ function validateEvents(value: unknown) {
     }
     ids.add(event.id);
   }
-  return value as typeof seed;
+  return value as AtlasEvent[];
 }
 
 async function digest(token: string) {
@@ -46,9 +60,9 @@ function newToken() {
   return Array.from(crypto.getRandomValues(new Uint8Array(24)), value => value.toString(16).padStart(2, "0")).join("");
 }
 
-const chronologyVersion = 1;
+const chronologyVersion = 2;
 
-function mergeChronology(saved: typeof seed): typeof seed {
+function mergeChronology(saved: AtlasEvent[]): AtlasEvent[] {
   const current = new Map(seed.map(event => [event.id, event]));
   const baseline = previousFields as Record<string, Record<string, unknown>>;
   const updated = saved.map(event => {
@@ -78,6 +92,22 @@ const newChronologyIds = new Set([
   "dm-windshire", "dm-visao", "dm-rock-sylas"
 ]);
 
+function addMapLocations(events: AtlasEvent[]): AtlasEvent[] {
+  const byId = new Map(seed.map(event => [event.id, event]));
+  return events.map(event => {
+    const reference = byId.get(event.id);
+    if (!reference || reference.group !== event.group) return event;
+    const matchingPlace = event.place === reference.place ||
+      (event.id === "broken-anvil-carta" && event.place === "Sharn · Broken Anvil") ||
+      (event.id === "isa-denour" && event.place === "Local por confirmar") ||
+      (event.id === "dm-merrix" && event.place === "Fairhaven, Sharn e Korth");
+    if (!matchingPlace) return event;
+    const points = { ...reference.points, ...event.points };
+    const hadPoint = Object.keys(event.points).length > 0;
+    return { ...event, place: reference.place, points, approx: hadPoint ? event.approx : reference.approx };
+  });
+}
+
 async function atlasRecord(db: D1Database) {
   const read = () => db.prepare("SELECT revision, events, chronology_version FROM atlas WHERE id = 1")
     .first<{ revision: number; events: string; chronology_version: number }>();
@@ -88,7 +118,9 @@ async function atlasRecord(db: D1Database) {
     record = await read();
   }
   for (let attempt = 0; record && record.chronology_version < chronologyVersion && attempt < 3; attempt++) {
-    const events = JSON.stringify(mergeChronology(JSON.parse(record.events)));
+    const savedEvents = JSON.parse(record.events) as AtlasEvent[];
+    const merged = record.chronology_version < 1 ? mergeChronology(savedEvents) : savedEvents;
+    const events = JSON.stringify(addMapLocations(merged));
     const saved = await db.prepare(
       "UPDATE atlas SET events = ?, revision = revision + 1, chronology_version = ? WHERE id = 1 AND revision = ? AND chronology_version = ? RETURNING revision, events, chronology_version"
     ).bind(events, chronologyVersion, record.revision, record.chronology_version).first<typeof record>();
@@ -121,7 +153,7 @@ async function route(request: Request, env: Cloudflare.Env) {
 
   if (request.method === "GET" && url.pathname === "/api/atlas") {
     const record = await atlasRecord(db);
-    const events = JSON.parse(record.events) as typeof seed;
+    const events = JSON.parse(record.events) as AtlasEvent[];
     return json({
       authenticated,
       role: viewer,
